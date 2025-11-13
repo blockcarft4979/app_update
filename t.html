@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星际探索 - 太空奇观</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0b0b2d, #000);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+        }
+        
+        header {
+            padding: 2rem;
+            text-align: center;
+            background: rgba(10, 10, 35, 0.7);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 10;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(79, 172, 254, 0.5);
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .planet-container {
+            position: relative;
+            height: 400px;
+            margin: 2rem auto;
+            max-width: 1200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .planet {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #4facfe, #1a2980);
+            box-shadow: 0 0 50px rgba(79, 172, 254, 0.5);
+            position: relative;
+            animation: rotate 30s linear infinite;
+        }
+        
+        .planet::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .spaceship {
+            position: absolute;
+            width: 100px;
+            height: 40px;
+            background: linear-gradient(90deg, #ddd, #fff);
+            border-radius: 10px 50% 50% 10px;
+            top: 50%;
+            left: 60%;
+            transform: translateY(-50%);
+            animation: fly 15s linear infinite;
+        }
+        
+        .spaceship::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff9500;
+            border-radius: 50%;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            box-shadow: 0 0 20px #ff9500;
+        }
+        
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card h3 {
+            color: #4facfe;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .explore-btn {
+            display: block;
+            width: 200px;
+            margin: 2rem auto;
+            padding: 12px 24px;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .explore-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(79, 172, 254, 0.5);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes fly {
+            0% { left: -100px; }
+            100% { left: 100%; }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .planet-container {
+                height: 300px;
+            }
+            
+            .planet {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <header>
+        <h1>星际探索</h1>
+        <p class="tagline">探索宇宙的奥秘，发现未知的世界，体验太空的壮丽与神秘</p>
+    </header>
+    
+    <div class="planet-container">
+        <div class="planet"></div>
+        <div class="spaceship"></div>
+    </div>
+    
+    <div class="content">
+        <div class="card-container">
+            <div class="card">
+                <h3>太阳系之旅</h3>
+                <p>探索我们的太阳系，从炽热的太阳到冰冷的海王星。了解每颗行星的独特特征和可能存在的生命迹象。</p>
+            </div>
+            <div class="card">
+                <h3>深空探测</h3>
+                <p>跟随我们的探测器穿越星际空间，探索遥远的星系、黑洞、星云和其他宇宙奇观。</p>
+            </div>
+            <div class="card">
+                <h3>太空科技</h3>
+                <p>了解最新的太空探索技术，从火箭和卫星到太空望远镜和火星车。</p>
+            </div>
+        </div>
+        
+        <button class="explore-btn">开始探索</button>
+    </div>
+    
+    <footer>
+        <p>© 2023 星际探索 | 太空奇观体验</p>
+    </footer>
+    
+    <script>
+        // 创建星星背景
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = 200;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // 随机位置和大小
+                const size = Math.random() * 3;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${x}vw`;
+                star.style.top = `${y}vh`;
+                star.style.opacity = Math.random() * 0.7 + 0.3;
+                
+                // 添加闪烁动画
+                const duration = Math.random() * 5 + 3;
+                star.style.animation = `twinkle ${duration}s infinite alternate`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // 添加星星闪烁动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes twinkle {
+                0% { opacity: 0.3; }
+                100% { opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // 按钮交互
+        document.querySelector('.explore-btn').addEventListener('click', function() {
+            alert('准备开始您的太空探索之旅！🚀');
+        });
+        
+        // 初始化星星
+        window.addEventListener('load', createStars);
+    </script>
+</body>
+</html>
