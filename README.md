@@ -1,1 +1,2 @@
-# app_update
+# Freewd社区公告仓库
+[]滚木内容
