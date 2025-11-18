@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>公告预览</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+        }
+
+        body {
+            background-color: #0f0f0f;
+            padding: 20px;
+            color: #B0B0B0;
+            font-size: 13px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            background: #0f0f0f;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333;
+            text-align: center;
+        }
+
+        .announcement-title {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .announcement-meta {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .announcement-content {
+            padding: 20px;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .announcement-text {
+            white-space: pre-line;
+            margin-bottom: 15px;
+            color: #B0B0B0;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .image-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .announcement-image {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .announcement-image:hover {
+            transform: scale(1.02);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 13px;
+            color: #B0B0B0;
+            border-top: 1px solid #333;
+            margin-top: 20px;
+        }
+
+        .loading, .error {
+            padding: 15px;
+            text-align: center;
+            color: #B0B0B0;
+        }
+
+        .error {
+            color: #ff6b6b;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background-color: #333;
+            color: #B0B0B0;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="content-container">
+            <div class="loading">正在加载公告内容...</div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            // 获取当前页面的路径，然后构建message.json的路径
+            const currentPath = window.location.pathname;
+            const directoryPath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
+            const jsonUrl = directoryPath + 'message.json';
+
+            fetch(jsonUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`无法加载公告: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => renderAnnouncement(data))
+                .catch(error => {
+                    showError(`加载错误: ${error.message}`);
+                });
+            
+            function renderAnnouncement(data) {
+                const container = document.getElementById('content-container');
+                
+                const title = data.title || '公告';
+                const content = data.content || '内容为空';
+                const imageUrl = data.img || null;
+                
+                // 获取当前日期
+                const currentDate = new Date();
+                const formattedDate = currentDate.toLocaleDateString('zh-CN', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    weekday: 'long'
+                });
+                
+                let imageHTML = '';
+                if (imageUrl) {
+                    imageHTML = `
+                        <div class="image-container">
+                            <img src="${imageUrl}" alt="公告图片" class="announcement-image" onerror="this.style.display='none'">
+                        </div>
+                    `;
+                }
+                
+                container.innerHTML = `
+                    <div class="header">
+                        <div class="announcement-title">${title}</div>
+                        <div class="announcement-meta">
+                            <div class="date-badge">${formattedDate}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="announcement-content">
+                        <div class="announcement-text">${content}</div>
+                        ${imageHTML}
+                    </div>
+                    
+                    <div class="footer">
+                        公告页面
+                    </div>
+                `;
+            }
+            
+            function showError(message) {
+                document.getElementById('content-container').innerHTML = `
+                    <div class="error">${message}</div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
