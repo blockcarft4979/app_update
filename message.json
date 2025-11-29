@@ -4,15 +4,10 @@
   "img": "https://i2.qyimage.store:2999/i/0e737af0fbe7403c",
   "music": {
     "url": "files/Hits Different(Explicit) - Taylor Swift.mp3",
-    "cover": "https://i2.qyimage.store:2999/i/0e737af0fbe7403c",
+    "cover": "files/Hits Different(Explicit) - Taylor Swift.jpg",
     "title": "Hits Different",
     "artist": "Taylor Swift",
-    "lyrics": [
-      {"time": 0, "text": "Oh, my love is a lie"},
-      {"time": 5, "text": "Shit my friends say to get me by"},
-      {"time": 10, "text": "It hits different"},
-      {"time": 15, "text": "It hits different this time"}
-    ]
+    "lyrics": "files/Hits Different.lrc"
   },
   "link": "https://blockcarft4979.github.io/app_update/announcement.html"
 }
