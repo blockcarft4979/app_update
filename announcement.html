@@ -373,7 +373,7 @@
                     const musicInfo = typeof musicData === 'string' ? 
                         { 
                             url: musicData, 
-                            cover: imageUrl || 'default-cover.jpg', // 使用公告图片作为封面
+                            cover: imageUrl || 'default-cover.jpg',
                             title: '当前播放',
                             artist: 'Freewd社区'
                         } : 
@@ -418,7 +418,7 @@
                                 <div class="search-results"></div>
                             </div>
                             <div class="lyrics-container">
-                                ${musicInfo.lyrics ? renderLyrics(musicInfo.lyrics) : '<div class="lyrics-line">暂无歌词，请搜索歌曲获取</div>'}
+                                <div class="loading">正在加载歌词...</div>
                             </div>
                             <audio id="audio-player" src="${musicInfo.url}"></audio>
                         </div>
@@ -446,27 +446,11 @@
                 
                 // 初始化音乐播放器
                 if (musicData) {
-                    initializeMusicPlayer();
+                    initializeMusicPlayer(musicData);
                 }
             }
             
-            function renderLyrics(lyricsData) {
-                if (!lyricsData) {
-                    return '<div class="lyrics-line">暂无歌词</div>';
-                }
-                
-                // 假设歌词数据是数组形式，每行包含时间和文本
-                if (Array.isArray(lyricsData)) {
-                    return lyricsData.map(line => 
-                        `<div class="lyrics-line" data-time="${line.time || 0}">${line.text || ''}</div>`
-                    ).join('');
-                }
-                
-                // 如果是纯文本歌词
-                return `<div class="lyrics-line">${lyricsData}</div>`;
-            }
-            
-            function initializeMusicPlayer() {
+            function initializeMusicPlayer(musicData) {
                 const audio = document.getElementById('audio-player');
                 const playBtn = document.querySelector('.play-btn');
                 const prevBtn = document.querySelector('.prev-btn');
@@ -475,7 +459,7 @@
                 const progressContainer = document.querySelector('.progress-container');
                 const currentTimeEl = document.querySelector('.current-time');
                 const durationEl = document.querySelector('.duration');
-                const lyricsLines = document.querySelectorAll('.lyrics-line');
+                const lyricsContainer = document.querySelector('.lyrics-container');
                 const searchInput = document.querySelector('.search-input');
                 const searchBtn = document.querySelector('.search-btn');
                 const searchResults = document.querySelector('.search-results');
@@ -484,6 +468,25 @@
                 const musicCover = document.querySelector('.music-cover');
                 
                 let isPlaying = false;
+                let lyricsData = [];
+                
+                // 加载歌词文件
+                if (musicData.lyrics && typeof musicData.lyrics === 'string') {
+                    fetch(musicData.lyrics)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('歌词文件加载失败');
+                            }
+                            return response.text();
+                        })
+                        .then(lyricText => {
+                            parseAndDisplayLyrics(lyricText);
+                        })
+                        .catch(error => {
+                            console.error('加载歌词失败:', error);
+                            lyricsContainer.innerHTML = '<div class="lyrics-line">歌词加载失败</div>';
+                        });
+                }
                 
                 // 播放/暂停功能
                 function togglePlay() {
@@ -548,24 +551,29 @@
                 // 歌词高亮
                 function updateLyricsHighlight(currentTime) {
                     // 简单实现：根据时间高亮当前歌词行
-                    // 实际应用中可能需要更复杂的歌词解析和时间匹配
-                    lyricsLines.forEach(line => {
-                        const lineTime = parseFloat(line.getAttribute('data-time')) || 0;
+                    lyricsData.forEach((line, index) => {
+                        const lineTime = parseFloat(line.time) || 0;
+                        const nextLineTime = index < lyricsData.length - 1 ? 
+                            parseFloat(lyricsData[index + 1].time) || 0 : 
+                            audio.duration;
                         
-                        // 简单判断：如果当前时间大于等于歌词行时间，则高亮该行
-                        if (currentTime >= lineTime) {
+                        // 如果当前时间在这行歌词的时间范围内，则高亮该行
+                        if (currentTime >= lineTime && currentTime < nextLineTime) {
                             // 移除之前的高亮
                             document.querySelector('.lyrics-line.active')?.classList.remove('active');
                             // 高亮当前行
-                            line.classList.add('active');
-                            
-                            // 滚动到当前歌词行
-                            const container = document.querySelector('.lyrics-container');
-                            const lineTop = line.offsetTop;
-                            const containerHeight = container.clientHeight;
-                            
-                            if (lineTop > container.scrollTop + containerHeight / 2) {
-                                container.scrollTop = lineTop - containerHeight / 2;
+                            const currentLine = document.querySelector(`.lyrics-line[data-time="${line.time}"]`);
+                            if (currentLine) {
+                                currentLine.classList.add('active');
+                                
+                                // 滚动到当前歌词行
+                                const container = document.querySelector('.lyrics-container');
+                                const lineTop = currentLine.offsetTop;
+                                const containerHeight = container.clientHeight;
+                                
+                                if (lineTop > container.scrollTop + containerHeight / 2) {
+                                    container.scrollTop = lineTop - containerHeight / 2;
+                                }
                             }
                         }
                     });
@@ -654,12 +662,12 @@
                             if (lyricData && lyricData.lyric) {
                                 parseAndDisplayLyrics(lyricData.lyric);
                             } else {
-                                document.querySelector('.lyrics-container').innerHTML = '<div class="lyrics-line">暂无歌词</div>';
+                                lyricsContainer.innerHTML = '<div class="lyrics-line">暂无歌词</div>';
                             }
                         })
                         .catch(error => {
                             console.error('获取歌词失败:', error);
-                            document.querySelector('.lyrics-container').innerHTML = '<div class="lyrics-line">歌词加载失败</div>';
+                            lyricsContainer.innerHTML = '<div class="lyrics-line">歌词加载失败</div>';
                         });
                     
                     // 清空搜索结果
@@ -670,7 +678,7 @@
                 function parseAndDisplayLyrics(lyricText) {
                     // 简单的LRC歌词解析
                     const lines = lyricText.split('\n');
-                    const lyricsData = [];
+                    lyricsData = [];
                     
                     lines.forEach(line => {
                         // 匹配时间标签和歌词
@@ -678,7 +686,8 @@
                         if (match) {
                             const minutes = parseInt(match[1]);
                             const seconds = parseInt(match[2]);
-                            const time = minutes * 60 + seconds;
+                            const hundredths = parseInt(match[3]);
+                            const time = minutes * 60 + seconds + hundredths / 100;
                             const text = match[4].trim();
                             
                             if (text) {
@@ -687,8 +696,11 @@
                         }
                     });
                     
+                    // 按时间排序
+                    lyricsData.sort((a, b) => a.time - b.time);
+                    
                     // 显示歌词
-                    document.querySelector('.lyrics-container').innerHTML = lyricsData.map(line => 
+                    lyricsContainer.innerHTML = lyricsData.map(line => 
                         `<div class="lyrics-line" data-time="${line.time}">${line.text}</div>`
                     ).join('');
                 }
