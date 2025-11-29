@@ -217,45 +217,38 @@
         }
 
         .lyrics-container {
-            max-height: 150px;
-            overflow-y: auto;
             margin-top: 15px;
-            padding: 10px;
+            padding: 15px;
             background: #0f0f0f;
             border-radius: 6px;
             font-size: 13px;
             line-height: 1.8;
-        }
-
-        .lyrics-line {
-            margin-bottom: 5px;
-            transition: color 0.3s;
             text-align: center;
-            min-height: 1.5em;
+            min-height: 90px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .lyrics-line.active {
+        .current-lyric {
+            font-size: 16px;
             color: #6F80AB;
             font-weight: bold;
+            margin-bottom: 8px;
+            min-height: 1.5em;
+            transition: all 0.3s ease;
         }
 
-        /* 滚动条样式 */
-        .lyrics-container::-webkit-scrollbar {
-            width: 6px;
+        .next-lyric {
+            font-size: 14px;
+            color: #888;
+            min-height: 1.5em;
+            transition: all 0.3s ease;
         }
 
-        .lyrics-container::-webkit-scrollbar-track {
-            background: #0f0f0f;
-            border-radius: 3px;
-        }
-
-        .lyrics-container::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 3px;
-        }
-
-        .lyrics-container::-webkit-scrollbar-thumb:hover {
-            background: #444;
+        .lyrics-placeholder {
+            color: #666;
+            font-style: italic;
         }
     </style>
 </head>
@@ -347,7 +340,8 @@
                                 <span class="duration">0:00</span>
                             </div>
                             <div class="lyrics-container">
-                                <div class="loading">正在加载歌词...</div>
+                                <div class="current-lyric lyrics-placeholder">当前歌词将在这里显示</div>
+                                <div class="next-lyric lyrics-placeholder">下一句歌词将在这里显示</div>
                             </div>
                             <audio id="audio-player" src="${musicInfo.url}"></audio>
                         </div>
@@ -386,7 +380,8 @@
                 const progressContainer = document.querySelector('.progress-container');
                 const currentTimeEl = document.querySelector('.current-time');
                 const durationEl = document.querySelector('.duration');
-                const lyricsContainer = document.querySelector('.lyrics-container');
+                const currentLyricEl = document.querySelector('.current-lyric');
+                const nextLyricEl = document.querySelector('.next-lyric');
                 
                 let isPlaying = false;
                 let lyricsData = [];
@@ -401,11 +396,12 @@
                             return response.text();
                         })
                         .then(lyricText => {
-                            parseAndDisplayLyrics(lyricText);
+                            parseLyrics(lyricText);
                         })
                         .catch(error => {
                             console.error('加载歌词失败:', error);
-                            lyricsContainer.innerHTML = '<div class="lyrics-line">歌词加载失败</div>';
+                            currentLyricEl.textContent = '歌词加载失败';
+                            nextLyricEl.textContent = '';
                         });
                 }
                 
@@ -440,8 +436,8 @@
                     // 更新时间显示
                     currentTimeEl.textContent = formatTime(currentTime);
                     
-                    // 更新歌词高亮
-                    updateLyricsHighlight(currentTime);
+                    // 更新歌词显示
+                    updateLyricsDisplay(currentTime);
                 }
                 
                 audio.addEventListener('timeupdate', updateProgress);
@@ -469,40 +465,41 @@
                     durationEl.textContent = formatTime(audio.duration);
                 });
                 
-                // 歌词高亮和滚动
-                function updateLyricsHighlight(currentTime) {
-                    let currentLineIndex = -1;
+                // 更新歌词显示
+                function updateLyricsDisplay(currentTime) {
+                    if (lyricsData.length === 0) return;
                     
-                    // 找到当前应该高亮的歌词行
+                    let currentIndex = -1;
+                    
+                    // 找到当前应该显示的歌词
                     for (let i = 0; i < lyricsData.length; i++) {
                         const lineTime = lyricsData[i].time;
                         const nextLineTime = i < lyricsData.length - 1 ? lyricsData[i + 1].time : audio.duration;
                         
                         if (currentTime >= lineTime && currentTime < nextLineTime) {
-                            currentLineIndex = i;
+                            currentIndex = i;
                             break;
                         }
                     }
                     
-                    // 如果找到了当前行
-                    if (currentLineIndex >= 0) {
-                        // 移除之前的高亮
-                        document.querySelector('.lyrics-line.active')?.classList.remove('active');
+                    // 如果找到了当前歌词
+                    if (currentIndex >= 0) {
+                        // 更新当前歌词
+                        currentLyricEl.textContent = lyricsData[currentIndex].text;
+                        currentLyricEl.classList.remove('lyrics-placeholder');
                         
-                        // 高亮当前行
-                        const currentLine = document.querySelector(`.lyrics-line[data-index="${currentLineIndex}"]`);
-                        if (currentLine) {
-                            currentLine.classList.add('active');
-                            
-                            // 滚动到当前歌词行
-                            const container = document.querySelector('.lyrics-container');
-                            const lineTop = currentLine.offsetTop;
-                            const containerHeight = container.clientHeight;
-                            const lineHeight = currentLine.clientHeight;
-                            
-                            // 确保当前行在容器中间位置
-                            container.scrollTop = lineTop - containerHeight / 2 + lineHeight / 2;
+                        // 更新下一句歌词
+                        if (currentIndex < lyricsData.length - 1) {
+                            nextLyricEl.textContent = lyricsData[currentIndex + 1].text;
+                            nextLyricEl.classList.remove('lyrics-placeholder');
+                        } else {
+                            nextLyricEl.textContent = '';
                         }
+                    } else {
+                        // 如果没有找到匹配的歌词
+                        currentLyricEl.textContent = '♪ 音乐播放中 ♪';
+                        currentLyricEl.classList.remove('lyrics-placeholder');
+                        nextLyricEl.textContent = '';
                     }
                 }
                 
@@ -516,9 +513,14 @@
                     `;
                     progressBar.style.width = '0%';
                     currentTimeEl.textContent = '0:00';
+                    
+                    // 重置歌词显示
+                    currentLyricEl.textContent = '播放结束';
+                    currentLyricEl.classList.remove('lyrics-placeholder');
+                    nextLyricEl.textContent = '';
                 });
                 
-                function parseAndDisplayLyrics(lyricText) {
+                function parseLyrics(lyricText) {
                     // 简单的LRC歌词解析
                     const lines = lyricText.split('\n');
                     lyricsData = [];
@@ -542,10 +544,16 @@
                     // 按时间排序
                     lyricsData.sort((a, b) => a.time - b.time);
                     
-                    // 显示歌词
-                    lyricsContainer.innerHTML = lyricsData.map((line, index) => 
-                        `<div class="lyrics-line" data-index="${index}" data-time="${line.time}">${line.text}</div>`
-                    ).join('');
+                    // 初始化歌词显示
+                    currentLyricEl.textContent = '♪ 准备播放 ♪';
+                    currentLyricEl.classList.remove('lyrics-placeholder');
+                    
+                    if (lyricsData.length > 0) {
+                        nextLyricEl.textContent = lyricsData[0].text;
+                        nextLyricEl.classList.remove('lyrics-placeholder');
+                    } else {
+                        nextLyricEl.textContent = '';
+                    }
                 }
             }
             
