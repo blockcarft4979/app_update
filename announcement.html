@@ -158,7 +158,7 @@
         .player-controls {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             margin-bottom: 15px;
         }
 
@@ -185,6 +185,7 @@
             height: 44px;
             background: #6F80AB;
             color: white;
+            margin: 0 10px;
         }
 
         .play-pause:hover {
@@ -229,6 +230,8 @@
         .lyrics-line {
             margin-bottom: 5px;
             transition: color 0.3s;
+            text-align: center;
+            min-height: 1.5em;
         }
 
         .lyrics-line.active {
@@ -253,65 +256,6 @@
 
         .lyrics-container::-webkit-scrollbar-thumb:hover {
             background: #444;
-        }
-        
-        /* 搜索样式 */
-        .music-search {
-            margin-bottom: 15px;
-        }
-        
-        .search-input {
-            width: 100%;
-            padding: 8px 12px;
-            background: #333;
-            border: 1px solid #444;
-            border-radius: 4px;
-            color: #fff;
-            font-size: 14px;
-        }
-        
-        .search-btn {
-            width: 100%;
-            margin-top: 8px;
-            padding: 8px;
-            background: #6F80AB;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background 0.3s;
-        }
-        
-        .search-btn:hover {
-            background: #7E8FBB;
-        }
-        
-        .search-results {
-            margin-top: 15px;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        
-        .search-result-item {
-            padding: 10px;
-            border-bottom: 1px solid #333;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        .search-result-item:hover {
-            background: #222;
-        }
-        
-        .search-result-title {
-            font-weight: bold;
-            color: #fff;
-        }
-        
-        .search-result-artist {
-            font-size: 12px;
-            color: #888;
         }
     </style>
 </head>
@@ -389,19 +333,9 @@
                                 </div>
                             </div>
                             <div class="player-controls">
-                                <button class="control-btn prev-btn">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
-                                    </svg>
-                                </button>
                                 <button class="control-btn play-pause play-btn">
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                         <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                </button>
-                                <button class="control-btn next-btn">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
                                     </svg>
                                 </button>
                             </div>
@@ -411,11 +345,6 @@
                             <div class="time-info">
                                 <span class="current-time">0:00</span>
                                 <span class="duration">0:00</span>
-                            </div>
-                            <div class="music-search">
-                                <input type="text" class="search-input" placeholder="搜索歌曲获取歌词和封面...">
-                                <button class="search-btn">搜索</button>
-                                <div class="search-results"></div>
                             </div>
                             <div class="lyrics-container">
                                 <div class="loading">正在加载歌词...</div>
@@ -453,19 +382,11 @@
             function initializeMusicPlayer(musicData) {
                 const audio = document.getElementById('audio-player');
                 const playBtn = document.querySelector('.play-btn');
-                const prevBtn = document.querySelector('.prev-btn');
-                const nextBtn = document.querySelector('.next-btn');
                 const progressBar = document.querySelector('.progress-bar');
                 const progressContainer = document.querySelector('.progress-container');
                 const currentTimeEl = document.querySelector('.current-time');
                 const durationEl = document.querySelector('.duration');
                 const lyricsContainer = document.querySelector('.lyrics-container');
-                const searchInput = document.querySelector('.search-input');
-                const searchBtn = document.querySelector('.search-btn');
-                const searchResults = document.querySelector('.search-results');
-                const musicTitle = document.querySelector('.music-title');
-                const musicArtist = document.querySelector('.music-artist');
-                const musicCover = document.querySelector('.music-cover');
                 
                 let isPlaying = false;
                 let lyricsData = [];
@@ -548,45 +469,42 @@
                     durationEl.textContent = formatTime(audio.duration);
                 });
                 
-                // 歌词高亮
+                // 歌词高亮和滚动
                 function updateLyricsHighlight(currentTime) {
-                    // 简单实现：根据时间高亮当前歌词行
-                    lyricsData.forEach((line, index) => {
-                        const lineTime = parseFloat(line.time) || 0;
-                        const nextLineTime = index < lyricsData.length - 1 ? 
-                            parseFloat(lyricsData[index + 1].time) || 0 : 
-                            audio.duration;
+                    let currentLineIndex = -1;
+                    
+                    // 找到当前应该高亮的歌词行
+                    for (let i = 0; i < lyricsData.length; i++) {
+                        const lineTime = lyricsData[i].time;
+                        const nextLineTime = i < lyricsData.length - 1 ? lyricsData[i + 1].time : audio.duration;
                         
-                        // 如果当前时间在这行歌词的时间范围内，则高亮该行
                         if (currentTime >= lineTime && currentTime < nextLineTime) {
-                            // 移除之前的高亮
-                            document.querySelector('.lyrics-line.active')?.classList.remove('active');
-                            // 高亮当前行
-                            const currentLine = document.querySelector(`.lyrics-line[data-time="${line.time}"]`);
-                            if (currentLine) {
-                                currentLine.classList.add('active');
-                                
-                                // 滚动到当前歌词行
-                                const container = document.querySelector('.lyrics-container');
-                                const lineTop = currentLine.offsetTop;
-                                const containerHeight = container.clientHeight;
-                                
-                                if (lineTop > container.scrollTop + containerHeight / 2) {
-                                    container.scrollTop = lineTop - containerHeight / 2;
-                                }
-                            }
+                            currentLineIndex = i;
+                            break;
                         }
-                    });
+                    }
+                    
+                    // 如果找到了当前行
+                    if (currentLineIndex >= 0) {
+                        // 移除之前的高亮
+                        document.querySelector('.lyrics-line.active')?.classList.remove('active');
+                        
+                        // 高亮当前行
+                        const currentLine = document.querySelector(`.lyrics-line[data-index="${currentLineIndex}"]`);
+                        if (currentLine) {
+                            currentLine.classList.add('active');
+                            
+                            // 滚动到当前歌词行
+                            const container = document.querySelector('.lyrics-container');
+                            const lineTop = currentLine.offsetTop;
+                            const containerHeight = container.clientHeight;
+                            const lineHeight = currentLine.clientHeight;
+                            
+                            // 确保当前行在容器中间位置
+                            container.scrollTop = lineTop - containerHeight / 2 + lineHeight / 2;
+                        }
+                    }
                 }
-                
-                // 上一曲/下一曲按钮（简化实现）
-                prevBtn.addEventListener('click', () => {
-                    audio.currentTime = 0;
-                });
-                
-                nextBtn.addEventListener('click', () => {
-                    audio.currentTime = audio.duration;
-                });
                 
                 // 音频结束时重置
                 audio.addEventListener('ended', () => {
@@ -599,81 +517,6 @@
                     progressBar.style.width = '0%';
                     currentTimeEl.textContent = '0:00';
                 });
-                
-                // 搜索功能
-                searchBtn.addEventListener('click', searchMusic);
-                searchInput.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') {
-                        searchMusic();
-                    }
-                });
-                
-                function searchMusic() {
-                    const query = searchInput.value.trim();
-                    if (!query) return;
-                    
-                    searchResults.innerHTML = '<div class="loading">搜索中...</div>';
-                    
-                    // 使用网易云音乐API搜索歌曲
-                    fetch(`https://api.injahow.cn/meting/?type=search&id=${encodeURIComponent(query)}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data && data.length > 0) {
-                                displaySearchResults(data);
-                            } else {
-                                searchResults.innerHTML = '<div class="error">未找到相关歌曲</div>';
-                            }
-                        })
-                        .catch(error => {
-                            console.error('搜索失败:', error);
-                            searchResults.innerHTML = '<div class="error">搜索失败，请重试</div>';
-                        });
-                }
-                
-                function displaySearchResults(results) {
-                    searchResults.innerHTML = '';
-                    
-                    results.slice(0, 5).forEach(song => {
-                        const resultItem = document.createElement('div');
-                        resultItem.className = 'search-result-item';
-                        resultItem.innerHTML = `
-                            <div class="search-result-title">${song.name}</div>
-                            <div class="search-result-artist">${song.artist}</div>
-                        `;
-                        
-                        resultItem.addEventListener('click', () => {
-                            selectSong(song);
-                        });
-                        
-                        searchResults.appendChild(resultItem);
-                    });
-                }
-                
-                function selectSong(song) {
-                    // 更新音乐信息
-                    musicTitle.textContent = song.name;
-                    musicArtist.textContent = song.artist;
-                    musicCover.src = song.cover;
-                    
-                    // 获取歌词
-                    fetch(`https://api.injahow.cn/meting/?type=lyric&id=${song.id}`)
-                        .then(response => response.json())
-                        .then(lyricData => {
-                            if (lyricData && lyricData.lyric) {
-                                parseAndDisplayLyrics(lyricData.lyric);
-                            } else {
-                                lyricsContainer.innerHTML = '<div class="lyrics-line">暂无歌词</div>';
-                            }
-                        })
-                        .catch(error => {
-                            console.error('获取歌词失败:', error);
-                            lyricsContainer.innerHTML = '<div class="lyrics-line">歌词加载失败</div>';
-                        });
-                    
-                    // 清空搜索结果
-                    searchResults.innerHTML = '';
-                    searchInput.value = '';
-                }
                 
                 function parseAndDisplayLyrics(lyricText) {
                     // 简单的LRC歌词解析
@@ -700,8 +543,8 @@
                     lyricsData.sort((a, b) => a.time - b.time);
                     
                     // 显示歌词
-                    lyricsContainer.innerHTML = lyricsData.map(line => 
-                        `<div class="lyrics-line" data-time="${line.time}">${line.text}</div>`
+                    lyricsContainer.innerHTML = lyricsData.map((line, index) => 
+                        `<div class="lyrics-line" data-index="${index}" data-time="${line.time}">${line.text}</div>`
                     ).join('');
                 }
             }
