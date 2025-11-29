@@ -44,7 +44,7 @@
         .announcement-title {
             font-size: 22px;
             margin-bottom: 10px;
-            color: #6F80AB; /* 修改为要求的颜色 */
+            color: #6F80AB;
             font-weight: 600;
         }
 
@@ -254,6 +254,65 @@
         .lyrics-container::-webkit-scrollbar-thumb:hover {
             background: #444;
         }
+        
+        /* 搜索样式 */
+        .music-search {
+            margin-bottom: 15px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 8px 12px;
+            background: #333;
+            border: 1px solid #444;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 14px;
+        }
+        
+        .search-btn {
+            width: 100%;
+            margin-top: 8px;
+            padding: 8px;
+            background: #6F80AB;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        
+        .search-btn:hover {
+            background: #7E8FBB;
+        }
+        
+        .search-results {
+            margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .search-result-item {
+            padding: 10px;
+            border-bottom: 1px solid #333;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .search-result-item:hover {
+            background: #222;
+        }
+        
+        .search-result-title {
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .search-result-artist {
+            font-size: 12px;
+            color: #888;
+        }
     </style>
 </head>
 <body>
@@ -310,13 +369,23 @@
                 
                 let musicHTML = '';
                 if (musicData) {
+                    // 如果music是字符串，创建默认音乐对象
+                    const musicInfo = typeof musicData === 'string' ? 
+                        { 
+                            url: musicData, 
+                            cover: imageUrl || 'default-cover.jpg', // 使用公告图片作为封面
+                            title: '当前播放',
+                            artist: 'Freewd社区'
+                        } : 
+                        musicData;
+                    
                     musicHTML = `
                         <div class="music-player">
                             <div class="music-player-header">
-                                <img src="${musicData.cover || 'default-cover.jpg'}" alt="专辑封面" class="music-cover">
+                                <img src="${musicInfo.cover}" alt="专辑封面" class="music-cover" onerror="this.src='default-cover.jpg'">
                                 <div class="music-info">
-                                    <div class="music-title">${musicData.title || '未知标题'}</div>
-                                    <div class="music-artist">${musicData.artist || '未知艺术家'}</div>
+                                    <div class="music-title">${musicInfo.title}</div>
+                                    <div class="music-artist">${musicInfo.artist}</div>
                                 </div>
                             </div>
                             <div class="player-controls">
@@ -343,10 +412,15 @@
                                 <span class="current-time">0:00</span>
                                 <span class="duration">0:00</span>
                             </div>
-                            <div class="lyrics-container">
-                                ${renderLyrics(musicData.lyrics)}
+                            <div class="music-search">
+                                <input type="text" class="search-input" placeholder="搜索歌曲获取歌词和封面...">
+                                <button class="search-btn">搜索</button>
+                                <div class="search-results"></div>
                             </div>
-                            <audio id="audio-player" src="${musicData.url}"></audio>
+                            <div class="lyrics-container">
+                                ${musicInfo.lyrics ? renderLyrics(musicInfo.lyrics) : '<div class="lyrics-line">暂无歌词，请搜索歌曲获取</div>'}
+                            </div>
+                            <audio id="audio-player" src="${musicInfo.url}"></audio>
                         </div>
                     `;
                 }
@@ -402,6 +476,12 @@
                 const currentTimeEl = document.querySelector('.current-time');
                 const durationEl = document.querySelector('.duration');
                 const lyricsLines = document.querySelectorAll('.lyrics-line');
+                const searchInput = document.querySelector('.search-input');
+                const searchBtn = document.querySelector('.search-btn');
+                const searchResults = document.querySelector('.search-results');
+                const musicTitle = document.querySelector('.music-title');
+                const musicArtist = document.querySelector('.music-artist');
+                const musicCover = document.querySelector('.music-cover');
                 
                 let isPlaying = false;
                 
@@ -511,6 +591,107 @@
                     progressBar.style.width = '0%';
                     currentTimeEl.textContent = '0:00';
                 });
+                
+                // 搜索功能
+                searchBtn.addEventListener('click', searchMusic);
+                searchInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        searchMusic();
+                    }
+                });
+                
+                function searchMusic() {
+                    const query = searchInput.value.trim();
+                    if (!query) return;
+                    
+                    searchResults.innerHTML = '<div class="loading">搜索中...</div>';
+                    
+                    // 使用网易云音乐API搜索歌曲
+                    fetch(`https://api.injahow.cn/meting/?type=search&id=${encodeURIComponent(query)}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data && data.length > 0) {
+                                displaySearchResults(data);
+                            } else {
+                                searchResults.innerHTML = '<div class="error">未找到相关歌曲</div>';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('搜索失败:', error);
+                            searchResults.innerHTML = '<div class="error">搜索失败，请重试</div>';
+                        });
+                }
+                
+                function displaySearchResults(results) {
+                    searchResults.innerHTML = '';
+                    
+                    results.slice(0, 5).forEach(song => {
+                        const resultItem = document.createElement('div');
+                        resultItem.className = 'search-result-item';
+                        resultItem.innerHTML = `
+                            <div class="search-result-title">${song.name}</div>
+                            <div class="search-result-artist">${song.artist}</div>
+                        `;
+                        
+                        resultItem.addEventListener('click', () => {
+                            selectSong(song);
+                        });
+                        
+                        searchResults.appendChild(resultItem);
+                    });
+                }
+                
+                function selectSong(song) {
+                    // 更新音乐信息
+                    musicTitle.textContent = song.name;
+                    musicArtist.textContent = song.artist;
+                    musicCover.src = song.cover;
+                    
+                    // 获取歌词
+                    fetch(`https://api.injahow.cn/meting/?type=lyric&id=${song.id}`)
+                        .then(response => response.json())
+                        .then(lyricData => {
+                            if (lyricData && lyricData.lyric) {
+                                parseAndDisplayLyrics(lyricData.lyric);
+                            } else {
+                                document.querySelector('.lyrics-container').innerHTML = '<div class="lyrics-line">暂无歌词</div>';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('获取歌词失败:', error);
+                            document.querySelector('.lyrics-container').innerHTML = '<div class="lyrics-line">歌词加载失败</div>';
+                        });
+                    
+                    // 清空搜索结果
+                    searchResults.innerHTML = '';
+                    searchInput.value = '';
+                }
+                
+                function parseAndDisplayLyrics(lyricText) {
+                    // 简单的LRC歌词解析
+                    const lines = lyricText.split('\n');
+                    const lyricsData = [];
+                    
+                    lines.forEach(line => {
+                        // 匹配时间标签和歌词
+                        const match = line.match(/\[(\d+):(\d+).(\d+)\](.*)/);
+                        if (match) {
+                            const minutes = parseInt(match[1]);
+                            const seconds = parseInt(match[2]);
+                            const time = minutes * 60 + seconds;
+                            const text = match[4].trim();
+                            
+                            if (text) {
+                                lyricsData.push({ time, text });
+                            }
+                        }
+                    });
+                    
+                    // 显示歌词
+                    document.querySelector('.lyrics-container').innerHTML = lyricsData.map(line => 
+                        `<div class="lyrics-line" data-time="${line.time}">${line.text}</div>`
+                    ).join('');
+                }
             }
             
             function showError(message) {
