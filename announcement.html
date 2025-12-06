@@ -1,613 +1,240 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Freewd社区公告</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>公告页 + 音乐播放器</title>
+
     <style>
-        * {
-            box-sizing: border-box;
+        body {
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.5;
+            background: #0d0d0d;
+            color: #fff;
+            font-family: "Segoe UI", sans-serif;
+            overflow-x: hidden;
         }
-
-        body {
-            background-color: #0f0f0f;
-            padding: 20px;
-            color: #B0B0B0;
-            font-size: 13px;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .container {
+        .card {
+            width: 90%;
             max-width: 700px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 20px;
-            background: #0f0f0f;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            margin: 40px auto;
+            padding: 25px;
+            background: #171717;
+            border-radius: 18px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
-
-        .header {
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #333;
-            text-align: center;
+        .title {
+            font-size: 24px;
+            font-weight: bold;
         }
-
-        .announcement-title {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #6F80AB;
-            font-weight: 600;
-        }
-
-        .announcement-meta {
-            font-size: 12px;
-            color: #888;
-        }
-
-        .announcement-content {
-            padding: 20px;
-            background-color: #1a1a1a;
-            border-radius: 8px;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-
-        .announcement-text {
-            white-space: pre-line;
-            margin-bottom: 15px;
-            color: #B0B0B0;
-            font-size: 15px;
-            line-height: 1.6;
-        }
-
-        .image-container {
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        .announcement-image {
-            max-width: 100%;
-            max-height: 400px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease;
-        }
-
-        .announcement-image:hover {
-            transform: scale(1.02);
-        }
-
-        .footer {
-            text-align: center;
-            padding: 15px;
-            font-size: 13px;
-            color: #B0B0B0;
-            border-top: 1px solid #333;
-            margin-top: 20px;
-        }
-
-        .loading, .error {
-            padding: 15px;
-            text-align: center;
-            color: #B0B0B0;
-        }
-
-        .error {
-            color: #ff6b6b;
-        }
-
-        .date-badge {
-            display: inline-block;
-            background-color: #333;
-            color: #B0B0B0;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            margin-top: 5px;
-        }
-
-        /* 音乐播放器样式 */
-        .music-player {
-            margin-top: 25px;
-            background: #1a1a1a;
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
-
-        .music-player-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .music-cover {
-            width: 80px;
-            height: 80px;
-            border-radius: 8px;
-            margin-right: 15px;
-            object-fit: cover;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-        }
-
-        .music-info {
-            flex: 1;
-        }
-
-        .music-title {
-            font-size: 16px;
-            color: #ffffff;
-            margin-bottom: 5px;
-        }
-
-        .music-artist {
+        .subtitle {
+            opacity: .7;
             font-size: 14px;
-            color: #B0B0B0;
+            margin-bottom: 25px;
         }
 
-        .player-controls {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* 播放器 */
+        .player {
+            margin-top: 25px;
+            text-align: center;
+        }
+        #song-cover {
+            width: 160px;
+            height: 160px;
+            border-radius: 14px;
+            object-fit: cover;
             margin-bottom: 15px;
         }
-
-        .control-btn {
-            background: #333;
-            border: none;
-            color: #B0B0B0;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.3s;
+        #song-title {
+            font-size: 20px;
+            margin: 0;
         }
-
-        .control-btn:hover {
-            background: #444;
+        #song-artist {
+            font-size: 14px;
+            opacity: .6;
+            margin: 4px 0 15px;
         }
-
-        .play-pause {
-            width: 44px;
-            height: 44px;
-            background: #6F80AB;
-            color: white;
-            margin: 0 10px;
-        }
-
-        .play-pause:hover {
-            background: #7E8FBB;
-        }
-
         .progress-container {
             width: 100%;
-            height: 4px;
+            height: 6px;
             background: #333;
-            border-radius: 2px;
+            border-radius: 6px;
             cursor: pointer;
-            margin-bottom: 5px;
+            margin: 20px 0;
         }
-
         .progress-bar {
-            height: 100%;
-            background: #6F80AB;
-            border-radius: 2px;
             width: 0%;
-            transition: width 0.1s;
+            height: 100%;
+            background: #4aa3ff;
+            border-radius: 6px;
         }
-
-        .time-info {
+        .time {
+            font-size: 13px;
+            opacity: .7;
             display: flex;
             justify-content: space-between;
-            font-size: 12px;
-            color: #888;
         }
-
-        .lyrics-container {
+        #play-btn {
             margin-top: 15px;
-            padding: 15px;
-            background: #0f0f0f;
-            border-radius: 6px;
-            font-size: 13px;
-            line-height: 1.8;
-            text-align: center;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .lyrics-wrapper {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .current-lyric {
+            padding: 12px 26px;
+            background: #4aa3ff;
+            border: none;
+            color: #fff;
+            border-radius: 40px;
             font-size: 16px;
-            color: #6F80AB;
-            font-weight: bold;
-            white-space: nowrap;
-            position: absolute;
-            left: 100%;
-            transition: left 0.5s ease-out;
-            padding: 0 20px;
+            cursor: pointer;
         }
 
-        .lyric-active {
-            left: 50%;
-            transform: translateX(-50%);
-            transition: left 8s linear, transform 0.3s ease;
+        .lyrics-box {
+            margin-top: 25px;
+            min-height: 60px;
         }
-
-        .lyrics-placeholder {
-            color: #666;
-            font-style: italic;
-            position: static;
-            transform: none;
+        #current-lyric {
+            font-size: 16px;
+            opacity: .9;
+        }
+        .error {
+            color: #ff5555;
+            padding: 10px;
+            background: #331010;
+            border-radius: 8px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div id="content-container">
-            <div class="loading">正在加载公告内容...</div>
+    <div class="card" id="content-container">
+        <div class="title">Freewd 社区 · 公告示例</div>
+        <div class="subtitle">这是一段示例公告，同时附带一个音乐播放器。</div>
+
+        <div class="player">
+            <img id="song-cover" src="" alt="封面" />
+            <h2 id="song-title">加载中…</h2>
+            <p id="song-artist">请稍候</p>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <div class="time">
+                <span id="current-time">00:00</span>
+                <span id="duration">00:00</span>
+            </div>
+
+            <button id="play-btn">播放</button>
+
+            <div class="lyrics-box">
+                <div id="current-lyric" class="lyrics-placeholder">歌词加载中…</div>
+            </div>
         </div>
     </div>
 
-    <script>
-        window.addEventListener('DOMContentLoaded', function() {
-            // 获取当前页面的路径，然后构建message.json的路径
-            const currentPath = window.location.pathname;
-            const directoryPath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
-            const jsonUrl = directoryPath + 'message.json';
 
-            fetch(jsonUrl)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`无法加载公告: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => renderAnnouncement(data))
-                .catch(error => {
-                    showError(`加载错误: ${error.message}`);
-                });
-            
-            function renderAnnouncement(data) {
-                const container = document.getElementById('content-container');
-                
-                const title = data.title || 'Freewd社区公告';
-                const content = data.content || '';
-                const imageUrl = data.img || null;
-                const musicData = data.music || null;
-                
-                // 获取当前日期
-                const currentDate = new Date();
-                const formattedDate = currentDate.toLocaleDateString('zh-CN', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    weekday: 'long'
-                });
-                
-                let imageHTML = '';
-                if (imageUrl) {
-                    imageHTML = `
-                        <div class="image-container">
-                            <img src="${imageUrl}" alt="公告图片" class="announcement-image" onerror="this.style.display='none'">
-                        </div>
-                    `;
-                }
-                
-                let musicHTML = '';
-                if (musicData) {
-                    // 如果music是字符串，创建默认音乐对象
-                    const musicInfo = typeof musicData === 'string' ? 
-                        { 
-                            url: musicData, 
-                            cover: imageUrl || 'default-cover.jpg',
-                            title: '当前播放',
-                            artist: 'Freewd社区'
-                        } : 
-                        musicData;
-                    
-                    musicHTML = `
-                        <div class="music-player">
-                            <div class="music-player-header">
-                                <img src="${musicInfo.cover}" alt="专辑封面" class="music-cover" onerror="this.src='default-cover.jpg'">
-                                <div class="music-info">
-                                    <div class="music-title">${musicInfo.title}</div>
-                                    <div class="music-artist">${musicInfo.artist}</div>
-                                </div>
-                            </div>
-                            <div class="player-controls">
-                                <button class="control-btn play-pause play-btn">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="progress-container">
-                                <div class="progress-bar"></div>
-                            </div>
-                            <div class="time-info">
-                                <span class="current-time">0:00</span>
-                                <span class="duration">0:00</span>
-                            </div>
-                            <div class="lyrics-container">
-                                <div class="lyrics-wrapper">
-                                    <div class="current-lyric lyrics-placeholder">当前歌词将在这里显示</div>
-                                </div>
-                            </div>
-                            <audio id="audio-player" src="${musicInfo.url}"></audio>
-                        </div>
-                    `;
-                }
-                
-                container.innerHTML = `
-                    <div class="header">
-                        <div class="announcement-title">${title}</div>
-                        <div class="announcement-meta">
-                            <div class="date-badge">${formattedDate}</div>
-                        </div>
-                    </div>
-                    
-                    <div class="announcement-content">
-                        <div class="announcement-text">${content}</div>
-                        ${imageHTML}
-                        ${musicHTML}
-                    </div>
-                    
-                    <div class="footer">
-                        Freewd社区公告|BLOCKCARFT
-                    </div>
-                `;
-                
-                // 初始化音乐播放器
-                if (musicData) {
-                    initializeMusicPlayer(musicData);
-                }
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+    const coverEl = document.getElementById('song-cover');
+    const titleEl = document.getElementById('song-title');
+    const artistEl = document.getElementById('song-artist');
+    const progressBar = document.getElementById('progress-bar');
+    const progressContainer = document.querySelector('.progress-container');
+    const playBtn = document.getElementById('play-btn');
+    const currentTimeEl = document.getElementById('current-time');
+    const durationEl = document.getElementById('duration');
+    const currentLyricEl = document.getElementById('current-lyric');
+
+    let audio = new Audio();
+    let isPlaying = false;
+    let lyricsData = [];
+
+    const lrcUrl = "https://raw.githubusercontent.com/zingual/zingual-lyrics/main/lyrics/Fish%20in%20a%20Pig%20Ep.5.lrc";
+
+    async function loadLyrics() {
+        try {
+            const res = await fetch(lrcUrl);
+            if (!res.ok) throw new Error();
+            const text = await res.text();
+            parseLyrics(text);
+        } catch {
+            currentLyricEl.textContent = "无法加载歌词";
+        }
+    }
+
+    function parseLyrics(lyricText) {
+        const lines = lyricText.split('\n');
+        lyricsData = [];
+        const timeReg = /\[(\d{2}):(\d{2})(?:\.(\d{2,3}))?\]/;
+
+        for (let line of lines) {
+            const match = timeReg.exec(line);
+            if (match) {
+                const min = parseInt(match[1]);
+                const sec = parseInt(match[2]);
+                const ms = match[3] ? parseInt(match[3].padEnd(3, '0')) : 0;
+                const time = min * 60 + sec + ms / 1000;
+                const text = line.replace(timeReg, '').trim();
+                lyricsData.push({ time, text });
             }
-            
-            function initializeMusicPlayer(musicData) {
-                const audio = document.getElementById('audio-player');
-                const playBtn = document.querySelector('.play-btn');
-                const progressBar = document.querySelector('.progress-bar');
-                const progressContainer = document.querySelector('.progress-container');
-                const currentTimeEl = document.querySelector('.current-time');
-                const durationEl = document.querySelector('.duration');
-                const currentLyricEl = document.querySelector('.current-lyric');
-                const lyricsWrapper = document.querySelector('.lyrics-wrapper');
-                
-                let isPlaying = false;
-                let lyricsData = [];
-                let scrollAnimation = null;
-                
-                // 加载歌词文件
-                if (musicData.lyrics && typeof musicData.lyrics === 'string') {
-                    fetch(musicData.lyrics)
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('歌词文件加载失败');
-                            }
-                            return response.text();
-                        })
-                        .then(lyricText => {
-                            parseLyrics(lyricText);
-                        })
-                        .catch(error => {
-                            console.error('加载歌词失败:', error);
-                            currentLyricEl.textContent = '歌词加载失败';
-                        });
-                }
-                
-                // 播放/暂停功能
-                function togglePlay() {
-                    if (isPlaying) {
-                        audio.pause();
-                        playBtn.innerHTML = `
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        `;
-                        stopLyricsAnimation();
-                    } else {
-                        audio.play();
-                        playBtn.innerHTML = `
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                            </svg>
-                        `;
-                    }
-                    isPlaying = !isPlaying;
-                }
-                
-                playBtn.addEventListener('click', togglePlay);
-                
-                // 更新进度条
-                function updateProgress(e) {
-                    const { duration, currentTime } = e.srcElement;
-                    const progressPercent = (currentTime / duration) * 100;
-                    progressBar.style.width = `${progressPercent}%`;
-                    
-                    // 更新时间显示
-                    currentTimeEl.textContent = formatTime(currentTime);
-                    
-                    // 更新歌词显示
-                    updateLyricsDisplay(currentTime);
-                }
-                
-                audio.addEventListener('timeupdate', updateProgress);
-                
-                // 设置进度
-                function setProgress(e) {
-                    const width = this.clientWidth;
-                    const clickX = e.offsetX;
-                    const duration = audio.duration;
-                    
-                    audio.currentTime = (clickX / width) * duration;
-                }
-                
-                progressContainer.addEventListener('click', setProgress);
-                
-                // 格式化时间
-                function formatTime(seconds) {
-                    const mins = Math.floor(seconds / 60);
-                    const secs = Math.floor(seconds % 60);
-                    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-                }
-                
-                // 设置音频加载完成后的时长
-                audio.addEventListener('loadedmetadata', () => {
-                    durationEl.textContent = formatTime(audio.duration);
-                });
-                
-                // 更新歌词显示
-                function updateLyricsDisplay(currentTime) {
-                    if (lyricsData.length === 0) return;
-                    
-                    let currentIndex = -1;
-                    
-                    // 找到当前应该显示的歌词
-                    for (let i = 0; i < lyricsData.length; i++) {
-                        const lineTime = lyricsData[i].time;
-                        const nextLineTime = i < lyricsData.length - 1 ? lyricsData[i + 1].time : audio.duration;
-                        
-                        if (currentTime >= lineTime && currentTime < nextLineTime) {
-                            currentIndex = i;
-                            break;
-                        }
-                    }
-                    
-                    // 如果找到了当前歌词
-                    if (currentIndex >= 0) {
-                        // 更新当前歌词
-                        currentLyricEl.textContent = lyricsData[currentIndex].text;
-                        currentLyricEl.classList.remove('lyrics-placeholder');
-                        
-                        // 检查歌词是否需要滚动
-                        checkLyricsAnimation();
-                    } else {
-                        // 如果没有找到匹配的歌词
-                        currentLyricEl.textContent = '♪ 音乐播放中 ♪';
-                        currentLyricEl.classList.remove('lyrics-placeholder');
-                        stopLyricsAnimation();
-                    }
-                }
-                
-                // 检查歌词是否需要动画
-                function checkLyricsAnimation() {
-                    // 清除之前的动画
-                    stopLyricsAnimation();
-                    
-                    // 重置歌词位置
-                    currentLyricEl.style.left = '100%';
-                    currentLyricEl.classList.remove('lyric-active');
-                    
-                    // 检查歌词是否超出容器宽度
-                    const containerWidth = lyricsWrapper.offsetWidth;
-                    const lyricWidth = currentLyricEl.offsetWidth;
-                    
-                    if (lyricWidth > containerWidth) {
-                        // 歌词过长，需要滚动
-                        setTimeout(() => {
-                            currentLyricEl.classList.add('lyric-active');
-                        }, 100);
-                    } else {
-                        // 歌词不长，居中显示
-                        currentLyricEl.style.left = '50%';
-                        currentLyricEl.style.transform = 'translateX(-50%)';
-                    }
-                }
-                
-                // 停止歌词动画
-                function stopLyricsAnimation() {
-                    currentLyricEl.classList.remove('lyric-active');
-                    currentLyricEl.style.left = '50%';
-                    currentLyricEl.style.transform = 'translateX(-50%)';
-                }
-                
-                // 音频结束时重置
-                audio.addEventListener('ended', () => {
-                    isPlaying = false;
-                    playBtn.innerHTML = `
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    `;
-                    progressBar.style.width = '0%';
-                    currentTimeEl.textContent = '0:00';
-                    
-                    // 重置歌词显示
-                    currentLyricEl.textContent = '播放结束';
-                    currentLyricEl.classList.remove('lyrics-placeholder');
-                    stopLyricsAnimation();
-                });
-                
-                function parseLyrics(lyricText) {
-                    // 简单的LRC歌词解析
-                    const lines = lyricText.split('\n');
-                    const lyricsByTime = {};
-                    
-                    lines.forEach(line => {
-                        // 匹配时间标签和歌词
-                        const timeMatches = line.matchAll(/\[(\d+):(\d+).(\d+)\]/g);
-                        const lyricText = line.replace(/\[\d+:\d+\.\d+\]/g, '').trim();
-                        
-                        if (!lyricText) return;
-                        
-                        for (const match of timeMatches) {
-                            const minutes = parseInt(match[1]);
-                            const seconds = parseInt(match[2]);
-                            const hundredths = parseInt(match[3]);
-                            const time = minutes * 60 + seconds + hundredths / 100;
-                            
-                            if (lyricsByTime[time]) {
-                                // 如果同一时间点已有歌词，合并它们
-                                lyricsByTime[time] += ' / ' + lyricText;
-                            } else {
-                                lyricsByTime[time] = lyricText;
-                            }
-                        }
-                    });
-                    
-                    // 转换为数组并排序
-                    lyricsData = Object.keys(lyricsByTime).map(time => ({
-                        time: parseFloat(time),
-                        text: lyricsByTime[time]
-                    })).sort((a, b) => a.time - b.time);
-                    
-                    // 初始化歌词显示
-                    currentLyricEl.textContent = '♪ 准备播放 ♪';
-                    currentLyricEl.classList.remove('lyrics-placeholder');
-                }
-            }
-            
-            function showError(message) {
-                document.getElementById('content-container').innerHTML = `
-                    <div class="error">${message}</div>
-                `;
-            }
+        }
+        lyricsData.sort((a, b) => a.time - b.time);
+    }
+
+    function formatTime(sec) {
+        const m = Math.floor(sec / 60);
+        const s = Math.floor(sec % 60);
+        return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    }
+
+    function updateLyric(current) {
+        if (!lyricsData.length) return;
+        let text = lyricsData[0].text;
+        for (let i = 0; i < lyricsData.length; i++) {
+            if (current >= lyricsData[i].time) text = lyricsData[i].text;
+        }
+        currentLyricEl.textContent = text;
+    }
+
+    function togglePlay() {
+        if (audio.paused) audio.play(); else audio.pause();
+    }
+
+    function setupUI() {
+        audio.addEventListener('timeupdate', () => {
+            const p = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = p + '%';
+            currentTimeEl.textContent = formatTime(audio.currentTime);
+            updateLyric(audio.currentTime);
         });
-    </script>
+
+        audio.addEventListener('loadeddata', () => {
+            durationEl.textContent = formatTime(audio.duration);
+        });
+
+        audio.addEventListener('play', () => {
+            isPlaying = true;
+            playBtn.textContent = '暂停';
+        });
+        audio.addEventListener('pause', () => {
+            isPlaying = false;
+            playBtn.textContent = '播放';
+        });
+
+        progressContainer.addEventListener('click', e => {
+            const rect = progressContainer.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            audio.currentTime = (x / rect.width) * audio.duration;
+        });
+
+        playBtn.addEventListener('click', togglePlay);
+    }
+
+    await loadLyrics();
+    audio.src = "https://files.catbox.moe/2dl1q0.mp3";
+
+    coverEl.src = "https://i.ibb.co/0j3Tjmv/cover.jpg";
+    titleEl.textContent = "Fish in a Pig Ep.5";
+    artistEl.textContent = "Zingual";
+
+    setupUI();
+});
+</script>
+
 </body>
 </html>
