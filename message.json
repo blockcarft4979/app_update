@@ -1,11 +1,12 @@
 {
-  "title": "",
-  "content": "",
-"img":"unll",
-  "music": {
-    "url": "files/Hits Different(Explicit) - Taylor Swift.mp3",
-    "cover": "files/Hits Different(Explicit) - Taylor Swift.jpg",
-    "title": "Hits Different",
-    "artist": "Taylor Swift"},
-  "link": "https://blockcarft4979.github.io/app_update/announcement.html"
+ "title": "",
+ "content": "",
+ "img": "unll",
+ "music": {
+  "url": "files\/Hits Different(Explicit) - Taylor Swift.mp3",
+  "cover": "files\/Hits Different(Explicit) - Taylor Swift.jpg",
+  "title": "Hits Different",
+  "artist": "Taylor Swift"
+ },
+ "link": "https:\/\/blockcarft4979.github.io\/app_update\/announcement.html"
 }
