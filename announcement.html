@@ -226,22 +226,19 @@
             text-align: center;
             height: 60px;
             display: flex;
-            flex-direction: column;
+            align-items: center;
             justify-content: center;
             overflow: hidden;
             position: relative;
         }
 
-        .lyrics-scroll-container {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .lyrics-wrapper {
+            position: relative;
             width: 100%;
             height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.5s ease;
         }
 
         .current-lyric {
@@ -249,29 +246,23 @@
             color: #6F80AB;
             font-weight: bold;
             white-space: nowrap;
+            position: absolute;
+            left: 100%;
+            transition: left 0.5s ease-out;
             padding: 0 20px;
-            text-align: center;
-            width: 100%;
-            transition: all 0.3s ease;
+        }
+
+        .lyric-active {
+            left: 50%;
+            transform: translateX(-50%);
+            transition: left 8s linear, transform 0.3s ease;
         }
 
         .lyrics-placeholder {
             color: #666;
             font-style: italic;
-        }
-
-        /* 滚动动画 */
-        @keyframes scrollLyrics {
-            0% {
-                transform: translateX(100%);
-            }
-            100% {
-                transform: translateX(-100%);
-            }
-        }
-
-        .scrolling {
-            animation: scrollLyrics 10s linear infinite;
+            position: static;
+            transform: none;
         }
     </style>
 </head>
@@ -363,7 +354,7 @@
                                 <span class="duration">0:00</span>
                             </div>
                             <div class="lyrics-container">
-                                <div class="lyrics-scroll-container">
+                                <div class="lyrics-wrapper">
                                     <div class="current-lyric lyrics-placeholder">当前歌词将在这里显示</div>
                                 </div>
                             </div>
@@ -405,11 +396,11 @@
                 const currentTimeEl = document.querySelector('.current-time');
                 const durationEl = document.querySelector('.duration');
                 const currentLyricEl = document.querySelector('.current-lyric');
-                const lyricsScrollContainer = document.querySelector('.lyrics-scroll-container');
+                const lyricsWrapper = document.querySelector('.lyrics-wrapper');
                 
                 let isPlaying = false;
                 let lyricsData = [];
-                let scrollTimeout = null;
+                let scrollAnimation = null;
                 
                 // 加载歌词文件
                 if (musicData.lyrics && typeof musicData.lyrics === 'string') {
@@ -438,7 +429,7 @@
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
                         `;
-                        stopLyricsScroll();
+                        stopLyricsAnimation();
                     } else {
                         audio.play();
                         playBtn.innerHTML = `
@@ -514,41 +505,45 @@
                         currentLyricEl.classList.remove('lyrics-placeholder');
                         
                         // 检查歌词是否需要滚动
-                        checkLyricsScroll();
+                        checkLyricsAnimation();
                     } else {
                         // 如果没有找到匹配的歌词
                         currentLyricEl.textContent = '♪ 音乐播放中 ♪';
                         currentLyricEl.classList.remove('lyrics-placeholder');
-                        stopLyricsScroll();
+                        stopLyricsAnimation();
                     }
                 }
                 
-                // 检查歌词是否需要滚动
-                function checkLyricsScroll() {
-                    // 清除之前的定时器
-                    if (scrollTimeout) clearTimeout(scrollTimeout);
+                // 检查歌词是否需要动画
+                function checkLyricsAnimation() {
+                    // 清除之前的动画
+                    stopLyricsAnimation();
                     
-                    // 重置滚动位置
-                    lyricsScrollContainer.style.transform = 'translateX(0)';
-                    lyricsScrollContainer.classList.remove('scrolling');
+                    // 重置歌词位置
+                    currentLyricEl.style.left = '100%';
+                    currentLyricEl.classList.remove('lyric-active');
                     
                     // 检查歌词是否超出容器宽度
-                    const containerWidth = lyricsScrollContainer.parentElement.offsetWidth;
+                    const containerWidth = lyricsWrapper.offsetWidth;
                     const lyricWidth = currentLyricEl.offsetWidth;
                     
                     if (lyricWidth > containerWidth) {
                         // 歌词过长，需要滚动
-                        scrollTimeout = setTimeout(() => {
-                            lyricsScrollContainer.classList.add('scrolling');
-                        }, 1000);
+                        setTimeout(() => {
+                            currentLyricEl.classList.add('lyric-active');
+                        }, 100);
+                    } else {
+                        // 歌词不长，居中显示
+                        currentLyricEl.style.left = '50%';
+                        currentLyricEl.style.transform = 'translateX(-50%)';
                     }
                 }
                 
-                // 停止歌词滚动
-                function stopLyricsScroll() {
-                    if (scrollTimeout) clearTimeout(scrollTimeout);
-                    lyricsScrollContainer.classList.remove('scrolling');
-                    lyricsScrollContainer.style.transform = 'translateX(0)';
+                // 停止歌词动画
+                function stopLyricsAnimation() {
+                    currentLyricEl.classList.remove('lyric-active');
+                    currentLyricEl.style.left = '50%';
+                    currentLyricEl.style.transform = 'translateX(-50%)';
                 }
                 
                 // 音频结束时重置
@@ -565,7 +560,7 @@
                     // 重置歌词显示
                     currentLyricEl.textContent = '播放结束';
                     currentLyricEl.classList.remove('lyrics-placeholder');
-                    stopLyricsScroll();
+                    stopLyricsAnimation();
                 });
                 
                 function parseLyrics(lyricText) {
