@@ -1,0 +1,8 @@
+{
+  "zone":[
+    {"name":"闲聊贴区","description":"","icon":"","zone":1},
+    {"name":"联机交友","description":"","icon":"","zone":2},
+    {"name":"匿名帖子","description":"","icon":"","zone":3}
+  ],
+  "date":"2026-01-06"
+}
