@@ -2,6 +2,7 @@
   "zone":[
     {"name":"闲聊贴区","description":"吹吹牛、灌水、分享日常(⁠=⁠^⁠･⁠ｪ⁠･⁠^⁠=⁠)","icon":"","zone":1},
     {"name":"联机交友","description":"","icon":"","msg":"使用人数较少，现已废弃此板块"},
+    {"name":"联机交友","description":"","icon":"","msg":"使用人数较少，现已废弃此板块"},{"name":"联机交友","description":"","icon":"","msg":"使用人数较少，现已废弃此板块"},{"name":"联机交友","description":"","icon":"","msg":"使用人数较少，现已废弃此板块"},
     {"name":"匿名帖子","description":"快来看看小幽灵们都说了些什么吧","icon":"","zone":3}
   ],
   "date":"2026-01-06"
