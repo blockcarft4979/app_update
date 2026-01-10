@@ -2,7 +2,10 @@
   "zone":[
     {"name":"闲聊贴区","description":"吹吹牛、灌水、分享日常(⁠=⁠^⁠･⁠ｪ⁠･⁠^⁠=⁠)","icon":"","zone":1},
     {"name":"联机交友","description":"","icon":"","msg":"使用人数较少，现已废弃此板块"},
-    {"name":"联机交友","description":"","icon":"","msg":"使用人数较少，现已废弃此板块"},{"name":"联机交友","description":"","icon":"","msg":"使用人数较少，现已废弃此板块"},{"name":"联机交友","description":"","icon":"","msg":"使用人数较少，现已废弃此板块"},
+    {"name":"广告招租","description":"滚木牌牛肉，吃过的人都说好","icon":"","msg":1,"link":"https://blockcarft4979.github.io/app_update/video/reward.mp4"},
+    {"name":"你干嘛哈哈哟~","description":"小黑子食不食油饼","icon":"","msg":1,"link":"https://blockcarft4979.github.io/app_update/video/reward.mp4"},
+    {"name":"滚木贴区","description":"滚木滚木滚木滚木滚木滚木","icon":"","msg":1,"link":"https://blockcarft4979.github.io/app_update/video/reward.mp4"},
+    {"name":"AI贴区","description":"Ai、aiaiaiai","icon":"","msg":114514},
     {"name":"匿名帖子","description":"快来看看小幽灵们都说了些什么吧","icon":"","zone":3}
   ],
   "date":"2026-01-06"
