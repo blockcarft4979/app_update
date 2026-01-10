@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Freewd 基岩版 Minecraft 服务器 - 稳定纯净生存公益服｜支持 1.21.13x</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Microsoft YaHei", sans-serif;
+    }
+
+    body {
+      background-color: #111;
+      color: #e0e0e0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px 15px;
+      background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+                      url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .container {
+      background: rgba(15, 15, 20, 0.9);
+      border-radius: 12px;
+      padding: 30px 25px;
+      width: 100%;
+      max-width: 850px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(100, 150, 200, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.2rem;
+      color: #4db8ff;
+      margin-bottom: 10px;
+      line-height: 1.3;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      text-align: center;
+      color: #a6d8ff;
+      margin-bottom: 25px;
+      font-weight: 500;
+    }
+
+    .announcement-box {
+      background: linear-gradient(135deg, rgba(0, 60, 120, 0.2), rgba(0, 100, 200, 0.1));
+      border-radius: 10px;
+      padding: 25px;
+      margin: 30px 0;
+      border-left: 4px solid #4db8ff;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .announcement-title {
+      font-size: 1.5rem;
+      color: #66cfff;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .announcement-content {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #d0e7ff;
+      text-align: center;
+    }
+
+    .version-box {
+      display: inline-block;
+      background: rgba(0, 80, 160, 0.3);
+      padding: 8px 20px;
+      border-radius: 20px;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #a6d8ff;
+      border: 1px solid rgba(100, 180, 255, 0.3);
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 1.4rem;
+      color: #4db8ff;
+      margin: 40px 0 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(100, 150, 200, 0.2);
+    }
+
+    .features-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .feature-card {
+      background: rgba(30, 40, 50, 0.7);
+      border-radius: 10px;
+      padding: 20px;
+      width: 250px;
+      transition: 0.3s;
+      border: 1px solid rgba(100, 150, 200, 0.1);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      background: rgba(40, 60, 90, 0.8);
+      box-shadow: 0 8px 20px rgba(0, 100, 200, 0.2);
+    }
+
+    .feature-card h3 {
+      font-size: 1.2rem;
+      color: #a6d8ff;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .feature-card p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #c0d0e0;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 28px;
+      background: linear-gradient(to right, #0066cc, #0088ff);
+      color: #fff;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 1.05rem;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0, 100, 200, 0.3);
+      transition: 0.3s;
+      border: none;
+      cursor: pointer;
+      min-width: 200px;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      background: linear-gradient(to right, #0055bb, #0077ee);
+      box-shadow: 0 6px 18px rgba(0, 120, 220, 0.4);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(to right, #333, #555);
+    }
+    
+    .btn-secondary:hover {
+      background: linear-gradient(to right, #444, #666);
+    }
+
+    .server-info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .info-item {
+      background: rgba(25, 35, 45, 0.7);
+      border-radius: 8px;
+      padding: 15px;
+      flex: 1;
+      min-width: 200px;
+      text-align: center;
+      border: 1px solid rgba(100, 150, 200, 0.1);
+    }
+
+    .info-item h4 {
+      font-size: 1.1rem;
+      color: #66cfff;
+      margin-bottom: 8px;
+    }
+
+    .info-item p {
+      color: #b0c8e0;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 40px;
+      border-top: 1px solid rgba(100, 150, 200, 0.1);
+      padding-top: 20px;
+    }
+
+    .footer a {
+      color: #66cfff;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    .countdown {
+      text-align: center;
+      font-size: 1.8rem;
+      color: #4db8ff;
+      margin: 20px 0 30px;
+      font-weight: bold;
+      text-shadow: 0 0 10px rgba(0, 150, 255, 0.5);
+    }
+
+    .gallery-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .gallery-item {
+      border-radius: 10px;
+      overflow: hidden;
+      transition: 0.3s;
+      border: 1px solid rgba(100, 150, 200, 0.1);
+      background: rgba(25, 35, 45, 0.7);
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 100, 200, 0.3);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-item p {
+      padding: 12px;
+      text-align: center;
+      color: #a6d8ff;
+      font-size: 0.95rem;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .photo-grid img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid rgba(100, 150, 200, 0.2);
+    }
+
+    .photo-grid img:hover {
+      transform: scale(1.02);
+      transition: transform 0.3s ease;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.7rem;
+      }
+      
+      .announcement-title {
+        font-size: 1.3rem;
+      }
+      
+      .btn {
+        width: 100%;
+        min-width: auto;
+      }
+      
+      .feature-card {
+        width: 100%;
+      }
+      
+      .countdown {
+        font-size: 1.4rem;
+      }
+      
+      .gallery-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .photo-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .photo-grid img {
+        height: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>出来了出来了！Freewd服务器开服时间出来了！</h1>
+    <p class="subtitle">锁定本月20日中午12点准时开服，届时Freewd4.0时代正式开始</p>
+    
+    <div class="announcement-box">
+      <div class="announcement-title">Freewd 4.0 正式开服公告</div>
+      <div class="announcement-content">
+        经过精心筹备，Freewd服务器将于本月20日中午12:00正式开启4.0时代！<br>
+        我们带来了更稳定的服务器性能、更完善的游戏机制和更友好的社区环境。
+        <div class="version-box">Minecraft基岩版版本: 1.21.13x</div>
+      </div>
+    </div>
+    
+    <div class="countdown" id="countdown">开服倒计时: 计算中...</div>
+    
+    <div class="section-title">Freewd 3.0 精彩瞬间</div>
+    <div class="gallery-container">
+      <div class="gallery-item">
+        <img src="https://i2.qyimage.store:2999/i/6e8ca17f1ead4b33" alt="Freewd 3.0关服合照">
+        <p>Freewd 3.0 关服合照</p>
+      </div>
+    </div>
+    
+    <div class="section-title">Freewd 3.0 服务器日常</div>
+    <div class="photo-grid">
+      <img src="https://i2.qyimage.store:2999/i/fe073071f4a34c93" alt="Freewd 3.0服务器日常 1">
+      <img src="https://i2.qyimage.store:2999/i/5d769428ce624145" alt="Freewd 3.0服务器日常 2">
+      <img src="https://i2.qyimage.store:2999/i/7399a226edf64861" alt="Freewd 3.0服务器日常 3">
+      <img src="https://i2.qyimage.store:2999/i/fa18a6a5aa134582" alt="Freewd 3.0服务器日常 4">
+    </div>
+    
+    <div class="section-title">服务器核心特色</div>
+    <div class="features-container">
+      <div class="feature-card">
+        <h3><i class="fas fa-shield-alt"></i>安心建造体验</h3>
+        <p>禁用苦力怕爆炸，保护玩家建筑成果，让创意不受意外破坏。</p>
+      </div>
+      <div class="feature-card">
+        <h3><i class="fas fa-lock"></i>资源安全保护</h3>
+        <p>独家保护插件保障个人物品安全，防止盗窃与误操作，游戏更安心。</p>
+      </div>
+      <div class="feature-card">
+        <h3><i class="fas fa-users"></i>友好社区氛围</h3>
+        <p>活跃友善的玩家群体与管理团队，为你提供帮助与陪伴，不再孤独生存。</p>
+      </div>
+      <div class="feature-card">
+        <h3><i class="fas fa-gamepad"></i>公益自由玩法</h3>
+        <p>纯净无收费，无强制捐赠，提供纯粹、自由、可持续的游戏体验。</p>
+      </div>
+    </div>
+    
+    <div class="section-title">新玩家礼遇</div>
+    <div class="announcement-content">
+      初次加入可领取「启程礼包」：18颗钻石 + 25份面包，助你轻松起步！
+    </div>
+    
+    <div class="server-info">
+      <div class="info-item">
+        <h4>服务器类型</h4>
+        <p>纯净生存公益服</p>
+      </div>
+      <div class="info-item">
+        <h4>游戏版本</h4>
+        <p>基岩版 1.21.13x</p>
+      </div>
+      <div class="info-item">
+        <h4>开服时间</h4>
+        <p>本月20日 中午12:00</p>
+      </div>
+    </div>
+    
+    <div class="btn-group">
+      <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=zR0m7hUzJUNaHzqfMPQxWzaFcLJzckAc4gat8AgzvTDMiyG6ViHHFkjiPfTlHE5P&busi_data=eyJncm91cENvZGUiOiIzNDA3MDc0NzEiLCJ0b2tlbiI6IlgvUVpjMFpOTEJVb0dnQ0pvbUduWXJnSy85RW5OT1dyK21EVm9Sa2cwSXdOZ1U2Z2dBc2N4NDJ4NWZkZUsrYjQiLCJ1aW4iOiIyMjE2MzY4NzA1In0=&data=sTv2AlbXLN5f5tyokesRc0__sf1piMoixnhhjdVT5wXjvyMutQ1L-XOi5jDObB0CC0YI1NVO-ZOuRW25rTccDA&svctype=4&tempid=h5_group_info" class="btn">
+        <i class="fab fa-qq"></i> 加入QQ群获取最新信息
+      </a>
+      <a href="https://github.com/blockcarft4979/freewd_community/releases" class="btn btn-secondary">
+        <i class="fas fa-download"></i> 下载Freewd社区资源
+      </a>
+    </div>
+    
+    <div class="section-title">Freewd服务器简介</div>
+    <div class="announcement-content">
+      Freewd自2024年2月开服以来，致力于打造稳定、友好、有趣的纯净生存世界。<br>
+      4.0版本将带来全新的游戏体验，欢迎每一位玩家的加入与监督！
+    </div>
+    
+    <div class="footer">
+      Freewd 4.0 | Powered by Blockcarft
+    </div>
+  </div>
+
+  <script>
+    function updateCountdown() {
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      const currentMonth = now.getMonth();
+      
+      let launchDate = new Date(currentYear, currentMonth, 20, 12, 0, 0);
+      
+      if (now > launchDate) {
+        launchDate = new Date(currentYear, currentMonth + 1, 20, 12, 0, 0);
+      }
+      
+      const timeDiff = launchDate - now;
+      
+      if (timeDiff <= 0) {
+        document.getElementById("countdown").innerHTML = "服务器已开放！";
+        return;
+      }
+      
+      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+      
+      document.getElementById("countdown").innerHTML = 
+        `开服倒计时: ${days}天 ${hours}小时 ${minutes}分 ${seconds}秒`;
+    }
+    
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+    
+    document.addEventListener("DOMContentLoaded", function() {
+      const now = new Date();
+      const monthNames = ["一月", "二月", "三月", "四月", "五月", "六月", 
+                         "七月", "八月", "九月", "十月", "十一月", "十二月"];
+      
+      const monthElements = document.querySelectorAll('.announcement-content, .subtitle');
+      monthElements.forEach(el => {
+        el.innerHTML = el.innerHTML.replace(/本月/g, monthNames[now.getMonth()] + "20日");
+      });
+    });
+  </script>
+</body>
+</html>
