@@ -1,10 +1,7 @@
 {
   "zone":[
-    {"name":"Freewd 4.0即将启程！","description":"Freewd 4.0即将和大家见面，倒计时：9天","icon":"https://blockcarft4979.github.io/app_update/img/Untitled 01-10-2026 09-09-53.png","msg":"开服倒计时：9天"},
     {"name":"闲聊贴区","description":"吹吹牛、灌水、分享日常","icon":"https://blockcarft4979.github.io/app_update/icons/daily.png","zone":1},
-    {"name":"匿名帖子","description":"快来看看小幽灵们都说了些什么吧","icon":"https://blockcarft4979.github.io/app_update/icons/SolarGhostBold.png","zone":3},
-    {"name":"联机交友","description":"使用人数较少，现已废弃此板块","icon":"https://blockcarft4979.github.io/app_update/icons/MdiMinecraft.png","msg":"使用人数较少，现已废弃此板块，开放时间另寻通知"},
-    {"name":"正在施工","description":"更多板块正在施工中，敬请期待吧~","icon":"https://blockcarft4979.github.io/app_update/icons/MaterialSymbolsConstructionRounded.png"} 
+    {"name":"匿名帖子","description":"快来看看小幽灵们都说了些什么吧","icon":"https://blockcarft4979.github.io/app_update/icons/SolarGhostBold.png","zone":3}, 
   ],
   "date":"2026-01-06"
 }
