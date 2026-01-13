@@ -1,8 +1,8 @@
 {
   "zone":[
-    {"name":"闲聊吧","description":"吹吹牛、灌水、分享日常都可以哦","icon":"https://www.blockcarft.xyz/icons/daily.png","zone":1},
-    {"name":"匿名吧","description":"快来看看小幽灵们都说了些什么吧","icon":"https://www.blockcarft.xyz/icons/SolarGhostBold.png","zone":3},
+    {"name":"闲聊吧","description":"吹吹牛、灌水、分享日常都可以哦","icon":"https://www.blockcarft.xyz/icons/DailyIcon.png","zone":1},
+    {"name":"匿名吧","description":"快来看看小幽灵们都说了些什么吧","icon":"https://www.blockcarft.xyz/icons/Ghost.png","zone":3},
     {"name":"Bug反馈","description":"点击此处反馈你所发现的Bug","icon":"https://www.blockcarft.xyz/icons/GridiconsBug.png","link":"https://github.com/blockcarft4979/freewd_community/issues"}
   ],
-  "date":"2026-01-13 13:45"
+  "date":"2026-01-13 21:56"
 }
