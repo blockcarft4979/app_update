@@ -12,7 +12,6 @@
     />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-      /* 全局样式重置和优化 - 基于Ceru Music风格，调整为黑色主题 */
       * {
         margin: 0;
         padding: 0;
@@ -20,10 +19,10 @@
       }
       
       :root {
-        --primary-color: #4db8ff; /* Minecraft蓝色主题 */
+        --primary-color: #4db8ff;
         --primary-light: #66cfff;
         --primary-dark: #0077cc;
-        --secondary-color: #f59e0b; /* 橙色作为辅助色 */
+        --secondary-color: #f59e0b;
         --text-primary: #e0e0e0;
         --text-secondary: #a0a0a0;
         --bg-light: #111;
@@ -38,7 +37,7 @@
         --radius-lg: 0.75rem;
         --radius-xl: 1rem;
         --radius-full: 9999px;
-        --navbar-height: 4.5rem; /* 新增：导航栏高度变量 */
+        --navbar-height: 4.5rem;
       }
       
       body {
@@ -52,7 +51,7 @@
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
-        padding-top: var(--navbar-height); /* 修复：添加与导航栏高度相等的内边距 */
+        padding-top: var(--navbar-height);
       }
       
       .container {
@@ -62,7 +61,6 @@
         padding: 0 1.5rem;
       }
       
-      /* 导航栏优化 - 黑色主题 */
       .navbar {
         position: fixed;
         top: 0;
@@ -72,7 +70,7 @@
         z-index: 1000;
         box-shadow: var(--shadow-sm);
         transition: all 0.3s ease;
-        height: var(--navbar-height); /* 确保导航栏有明确高度 */
+        height: var(--navbar-height);
       }
       
       .nav-container {
@@ -82,7 +80,7 @@
         padding: 1rem 1.5rem;
         max-width: 1200px;
         margin: 0 auto;
-        height: 100%; /* 确保容器占满整个导航栏高度 */
+        height: 100%;
       }
       
       .nav-logo {
@@ -144,13 +142,12 @@
         width: 100%;
       }
       
-      /* Hero 区域优化 - 黑色主题 */
       .hero {
-        padding: 4rem 0 6rem; /* 调整：减少顶部内边距，因为body已经有了padding-top */
+        padding: 4rem 0 6rem;
         background: linear-gradient(135deg, rgba(10, 10, 15, 0.9) 0%, rgba(20, 20, 30, 0.8) 100%);
         position: relative;
         overflow: hidden;
-        margin-top: 0; /* 确保没有额外外边距 */
+        margin-top: 0;
       }
       
       .hero::before {
@@ -270,7 +267,6 @@
         align-items: center;
       }
       
-      /* 公告区域优化 */
       .announcement-box {
         background: linear-gradient(135deg, rgba(0, 60, 120, 0.2), rgba(0, 100, 200, 0.1));
         border-radius: var(--radius-lg);
@@ -306,7 +302,6 @@
         border: 1px solid rgba(100, 180, 255, 0.3);
       }
       
-      /* 倒计时样式 */
       .countdown {
         text-align: center;
         font-size: 1.8rem;
@@ -320,7 +315,6 @@
         border: 1px solid var(--border-color);
       }
       
-      /* 功能特色区域优化 */
       .features {
         padding: 6rem 0;
         background-color: var(--bg-white);
@@ -407,7 +401,6 @@
         line-height: 1.7;
       }
       
-      /* 图库区域优化 */
       .gallery {
         padding: 6rem 0;
         background: linear-gradient(135deg, rgba(10, 10, 15, 0.9) 0%, rgba(20, 20, 30, 0.8) 100%);
@@ -475,7 +468,6 @@
         transform: scale(1.02);
       }
       
-      /* 服务器信息区域优化 */
       .server-info {
         padding: 4rem 0;
         background-color: var(--bg-white);
@@ -522,7 +514,6 @@
         font-size: 1.1rem;
       }
       
-      /* 按钮组优化 */
       .btn-group {
         display: flex;
         flex-wrap: wrap;
@@ -544,7 +535,6 @@
         box-shadow: 0 8px 20px rgba(77, 184, 255, 0.4);
       }
       
-      /* 页脚优化 */
       .footer {
         background-color: var(--text-primary);
         color: var(--bg-light);
@@ -582,7 +572,6 @@
         font-size: 0.875rem;
       }
       
-      /* 响应式调整 */
       @media (max-width: 768px) {
         .hero-title {
           font-size: 2.5rem;
@@ -616,11 +605,11 @@
       
       @media (max-width: 640px) {
         body {
-          padding-top: 4rem; /* 移动端调整body的padding-top */
+          padding-top: 4rem;
         }
         
         .hero {
-          padding: 2rem 0 4rem; /* 移动端调整hero的内边距 */
+          padding: 2rem 0 4rem;
         }
         
         .hero-title {
@@ -671,13 +660,11 @@
     <nav class="navbar">
       <div class="nav-container">
         <div class="nav-logo">
-          <!-- 使用指定的Freewd图标 -->
           <img src="https://blockcarft4979.github.io/app_update/img/Freewd%20Icon.png" alt="Freewd服务器" class="logo-img">
           <span class="logo-text">Freewd 4.0</span>
 
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero">
       <div class="hero-container">
         <div class="hero-content fade-in">
@@ -836,7 +823,6 @@
     </footer>
 
     <script>
-      // 倒计时功能
       function updateCountdown() {
         const now = new Date();
         const currentYear = now.getFullYear();
