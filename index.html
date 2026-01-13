@@ -869,7 +869,6 @@
           fadeInObserver.observe(element);
         });
         
-        // 更新月份显示
         const now = new Date();
         const monthNames = ["一月", "二月", "三月", "四月", "五月", "六月", 
                            "七月", "八月", "九月", "十月", "十一月", "十二月"];
@@ -881,7 +880,6 @@
           }
         });
         
-        // 修复导航链接平滑滚动，考虑导航栏高度
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
           anchor.addEventListener('click', function (e) {
             e.preventDefault();
