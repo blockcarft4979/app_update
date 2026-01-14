@@ -1,23 +1,53 @@
 {
-  "zone": [
-    {
-      "name": "闲聊吧",
-      "description": "吹吹牛、灌水、分享日常都可以哦",
-      "icon": "https://www.blockcarft.xyz/icons/Daily.png",
-      "zone": 1
-    },
-    {
-      "name": "匿名吧",
-      "description": "快来看看小幽灵们都说了些什么吧（和联机交友一样超级冷门）",
-      "icon": "https://www.blockcarft.xyz/icons/Ghost.png",
-      "zone": 3
-    },
-    {
-      "name": "Bug反馈",
-      "description": "点击此处反馈你所发现的Bug（部分地区需使用加速器访问Github）",
-      "icon": "https://www.blockcarft.xyz/icons/MdiBug.png",
-      "link": "https://github.com/blockcarft4979/freewd_community/issues"
-    }
-  ],
-  "date": "2026-01-15 00:00"
+    "zone": [
+        {
+            "name": "闲聊吧",
+            "description": "吹吹牛、灌水、分享日常都可以哦",
+            "icon": "https://www.blockcarft.xyz/icons/Daily.png",
+            "zone": 1
+        },
+        {
+            "name": "匿名吧",
+            "description": "快来看看小幽灵们都说了些什么吧（和联机交友一样超级冷门）",
+            "icon": "https://www.blockcarft.xyz/icons/Ghost.png",
+            "zone": 3
+        },
+        {
+            "name": "匿名吧",
+            "description": "快来看看小幽灵们都说了些什么吧（和联机交友一样超级冷门）",
+            "icon": "https://www.blockcarft.xyz/icons/Test.png",
+            "msg": "Just a test"
+        },
+        {
+            "name": "匿名吧",
+            "description": "快来看看小幽灵们都说了些什么吧（和联机交友一样超级冷门）",
+            "icon": "https://www.blockcarft.xyz/icons/Test.png",
+            "msg": "Just a test"
+        },
+        {
+            "name": "匿名吧",
+            "description": "快来看看小幽灵们都说了些什么吧（和联机交友一样超级冷门）",
+            "icon": "https://www.blockcarft.xyz/icons/Test.png",
+            "msg": "Just a test"
+        },
+        {
+            "name": "匿名吧",
+            "description": "快来看看小幽灵们都说了些什么吧（和联机交友一样超级冷门）",
+            "icon": "https://www.blockcarft.xyz/icons/Test.png",
+            "msg": "Just a test"
+        },
+        {
+            "name": "匿名吧",
+            "description": "快来看看小幽灵们都说了些什么吧（和联机交友一样超级冷门）",
+            "icon": "https://www.blockcarft.xyz/icons/Test.png",
+            "msg": "Just a test"
+        },
+        {
+            "name": "Bug反馈",
+            "description": "点击此处反馈你所发现的Bug（部分地区需使用加速器访问Github）",
+            "icon": "https://www.blockcarft.xyz/icons/MdiBug.png",
+            "link": "https://github.com/blockcarft4979/freewd_community/issues"
+        }
+    ],
+    "date": "2026-01-15 00:00"
 }
