@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Freewd 帖子内容预览</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+  rel="stylesheet"
+/>
+<style>
+:root {
+  --primary-color: #4db8ff; /* Minecraft蓝色主题 */
+  --primary-light: #66cfff;
+  --primary-dark: #0077cc;
+  --secondary-color: #f59e0b; /* 橙色作为辅助色 */
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --bg-light: #111;
+  --bg-white: #0f0f0f;
+  --bg-card: rgba(30, 30, 30, 0.9);
+  --border-color: rgba(100, 100, 100, 0.2);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--bg-light);
+  overflow-x: hidden;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+                  url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2.5rem;
+  background: rgba(15, 15, 20, 0.9);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+}
+
+.header {
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.post-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.post-time {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  background: rgba(0, 80, 160, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(100, 180, 255, 0.1);
+}
+
+.message-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.message-title .gradient-text {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+.message-content {
+  padding: 2.5rem;
+  background-color: var(--bg-card);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.message-content:hover {
+  border-color: var(--primary-light);
+  box-shadow: var(--shadow-lg);
+}
+
+.message-text {
+  white-space: pre-line;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  word-break: break-word;
+  line-height: 1.7;
+}
+
+/* 链接样式 */
+.message-text a {
+  color: var(--primary-color);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(77, 184, 255, 0.3);
+  transition: all 0.2s ease;
+  padding: 0 2px;
+  font-weight: 500;
+}
+
+.message-text a:hover {
+  color: var(--primary-light);
+  border-bottom-color: var(--primary-color);
+  background-color: rgba(77, 184, 255, 0.1);
+}
+
+.image-container {
+  margin: 2rem 0;
+  text-align: center;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.message-image {
+  max-width: 100%;
+  max-height: 500px;
+  border-radius: var(--radius-lg);
+  transition: transform 0.3s ease;
+  display: block;
+  margin: 0 auto;
+}
+
+.message-image:hover {
+  transform: scale(1.02);
+}
+
+.loading, .error {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+}
+
+.loading:after {
+  content: '...';
+  animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: ''; }
+  40% { content: '.'; }
+  60% { content: '..'; }
+  80%, 100% { content: '...'; }
+}
+
+.preview-hint {
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 2rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 2rem;
+}
+
+.preview-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, rgba(77, 184, 255, 0.1), rgba(77, 184, 255, 0.05));
+}
+
+.preview-link:hover {
+  color: var(--primary-light);
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  background: linear-gradient(135deg, rgba(77, 184, 255, 0.2), rgba(77, 184, 255, 0.1));
+}
+
+.preview-link i {
+  font-size: 1.2rem;
+}
+
+/* 卡片悬停效果 */
+.post-card {
+  background-color: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  margin-bottom: 1.5rem;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-light);
+}
+
+/* 返回首页链接 */
+.back-home {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.back-home a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.back-home a:hover {
+  color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+  
+  .container {
+    padding: 1.5rem;
+  }
+  
+  .message-title {
+    font-size: 1.5rem;
+  }
+  
+  .message-content {
+    padding: 1.5rem;
+  }
+  
+  .message-text {
+    font-size: 1rem;
+  }
+  
+  .post-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .message-image {
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .message-content {
+    padding: 1rem;
+  }
+  
+  .message-title {
+    font-size: 1.3rem;
+  }
+  
+  .preview-link {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div id="content-container">
+    <div class="loading">正在加载帖子内容</div>
+  </div>
+  
+  <div class="back-home">
+    <a href="javascript:history.back()">
+      <i class="fas fa-arrow-left"></i> 返回上一页
+    </a>
+  </div>
+</div>
+
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const filename = urlParams.get('filename') || urlParams.get('file');
+  const zone = urlParams.get('zone') || '1';
+  
+  if (!filename) {
+    showError('错误：没有指定文件名');
+    return;
+  }
+
+  // 构建API URL - 使用新的API地址
+  const apiUrl = `https://app.blockcarft.xyz/app/api/NewGetPost.php?filename=${encodeURIComponent(filename)}&zone=${zone}`;
+  
+  // 跳转链接
+  const appLink = `freewd://open_post/path?filename=${filename}&zone=${zone}`;
+  
+  // 调用API获取帖子数据
+  fetch(apiUrl)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`无法加载帖子: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      renderPost(data, appLink);
+    })
+    .catch(error => {
+      console.error('Error fetching post:', error);
+      showError(`加载错误: ${error.message}`);
+    });
+  
+  /**
+   * 将文本中的URL转换为可点击的链接
+   * 支持 http://, https://, ftp://, mailto:, 以及 www. 开头的链接
+   */
+  function linkify(text) {
+    if (!text) return '';
+    
+    // URL正则表达式
+    const urlRegex = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
+    const wwwRegex = /(^|\s)(www\.[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
+    const emailRegex = /(\b[\w.!#$%&'*+\/=?^_`{|}~-]+@[\w-]+(?:\.[\w-]+)*\b)/gi;
+    
+    // 替换URL
+    let linkedText = text
+      .replace(urlRegex, function(url) {
+        return `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+      })
+      .replace(wwwRegex, function(url, space) {
+        return `${space}<a href="http://${url.trim()}" target="_blank" rel="noopener noreferrer">${url.trim()}</a>`;
+      })
+      .replace(emailRegex, function(email) {
+        return `<a href="mailto:${email}" target="_blank" rel="noopener noreferrer">${email}</a>`;
+      });
+    
+    return linkedText;
+  }
+  
+  /**
+   * 安全地渲染HTML，防止XSS攻击
+   */
+  function safeHtml(html) {
+    if (!html) return '';
+    const div = document.createElement('div');
+    div.textContent = html;
+    return div.innerHTML;
+  }
+  
+  /**
+   * 渲染帖子内容
+   */
+  function renderPost(data, appLink) {
+    const container = document.getElementById('content-container');
+    
+    const title = data.title || '无标题';
+    const message = data.message || '内容为空';
+    const imageUrl = data.img || null;
+    const postTime = data.time || '';
+    
+    // 对消息进行链接转换
+    const linkedMessage = linkify(safeHtml(message));
+    
+    // 构建图片HTML
+    let imageHTML = '';
+    if (imageUrl) {
+      imageHTML = `
+        <div class="image-container">
+          <img src="${imageUrl}" alt="帖子图片" class="message-image" onerror="this.style.display='none'">
+        </div>
+      `;
+    }
+    
+    // 格式化标题，检查是否包含Freewd
+    let formattedTitle = safeHtml(title);
+    if (title.toLowerCase().includes('freewd')) {
+      const parts = title.split('Freewd');
+      formattedTitle = parts[0] + '<span class="gradient-text">Freewd</span>' + (parts[1] || '');
+    }
+    
+    container.innerHTML = `
+      <div class="header">
+        ${postTime ? `<div class="post-time">${safeHtml(postTime)}</div>` : ''}
+        <div class="message-title">${formattedTitle}</div>
+      </div>
+      
+      <div class="message-content">
+        ${linkedMessage ? `<div class="message-text">${linkedMessage}</div>` : ''}
+        ${imageHTML}
+      </div>
+      
+      <div class="preview-hint">
+        <a class="preview-link" href="${appLink}">
+          <i class="fas fa-external-link-alt"></i> 在 Freewd App 中查看完整功能
+        </a>
+      </div>
+    `;
+    
+    // 为跳转链接添加点击效果
+    const link = container.querySelector('.preview-link');
+    if (link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          // 尝试使用应用链接，如果失败则什么都不做
+          window.location.href = appLink;
+        }, 200);
+      });
+    }
+    
+    // 为所有自动生成的链接添加点击处理
+    const autoLinks = container.querySelectorAll('.message-text a');
+    autoLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const url = this.getAttribute('href');
+        if (url) {
+          window.open(url, '_blank', 'noopener,noreferrer');
+        }
+      });
+    });
+  }
+  
+  function showError(message) {
+    document.getElementById('content-container').innerHTML = `
+      <div class="error">${message}</div>
+    `;
+  }
+});
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+</body>
+</html>
