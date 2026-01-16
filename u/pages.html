@@ -44,11 +44,6 @@ body {
   color: var(--text-primary);
   background-color: var(--bg-light);
   overflow-x: hidden;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
-                  url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
   padding: 20px;
   min-height: 100vh;
 }
@@ -341,15 +336,22 @@ window.addEventListener('DOMContentLoaded', function() {
   const zone = urlParams.get('zone') || '1';
   
   if (!filename) {
-    showError('错误：没有指定文件名');
+    // 如果没有指定文件名，显示错误并尝试跳转
+    const appLink = `freewd://open_post/path?filename=&zone=${zone}`;
+    window.location.href = appLink;
     return;
   }
 
   // 构建API URL - 使用新的API地址
   const apiUrl = `https://app.blockcarft.xyz/app/api/NewGetPost.php?filename=${encodeURIComponent(filename)}&zone=${zone}`;
   
-  // 跳转链接
+  // 构建应用链接
   const appLink = `freewd://open_post/path?filename=${filename}&zone=${zone}`;
+  
+  // 设置一个超时跳转，如果3秒内没有获取到数据，直接跳转到应用
+  const timeoutId = setTimeout(() => {
+    window.location.href = appLink;
+  }, 3000);
   
   // 调用API获取帖子数据
   fetch(apiUrl)
@@ -360,14 +362,22 @@ window.addEventListener('DOMContentLoaded', function() {
       return response.json();
     })
     .then(data => {
+      // 清除跳转超时
+      clearTimeout(timeoutId);
+      
       if (data.error) {
-        throw new Error(data.error);
+        // 如果有错误，直接跳转到应用
+        window.location.href = appLink;
+        return;
       }
       renderPost(data, appLink);
     })
     .catch(error => {
       console.error('Error fetching post:', error);
-      showError(`加载错误: ${error.message}`);
+      // 清除跳转超时
+      clearTimeout(timeoutId);
+      // 发生错误时直接跳转到应用
+      window.location.href = appLink;
     });
   
   /**
@@ -435,6 +445,60 @@ window.addEventListener('DOMContentLoaded', function() {
     let formattedTitle = safeHtml(title);
     if (title.toLowerCase().includes('freewd')) {
       const parts = title.split('Freewd');
+      formattedTitle = parts[0] + '<span class="gradient-text">Freewd</span>' + (parts[1] || '');
+    }
+    
+    container.innerHTML = `
+      <div class="header">
+        ${postTime ? `<div class="post-time">${safeHtml(postTime)}</div>` : ''}
+        <div class="message-title">${formattedTitle}</div>
+      </div>
+      
+      <div class="message-content">
+        ${linkedMessage ? `<div class="message-text">${linkedMessage}</div>` : ''}
+        ${imageHTML}
+      </div>
+      
+      <div class="preview-hint">
+        <a class="preview-link" href="${appLink}">
+          <i class="fas fa-external-link-alt"></i> 在 Freewd App 中查看完整功能
+        </a>
+      </div>
+    `;
+    
+    // 为跳转链接添加点击效果
+    const link = container.querySelector('.preview-link');
+    if (link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          // 跳转到应用链接
+          window.location.href = appLink;
+        }, 200);
+      });
+    }
+    
+    // 为所有自动生成的链接添加点击处理
+    const autoLinks = container.querySelectorAll('.message-text a');
+    autoLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const url = this.getAttribute('href');
+        if (url) {
+          // 在新标签页中打开链接
+          window.open(url, '_blank', 'noopener,noreferrer');
+        }
+      });
+    });
+  }
+});
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+</body>
+</html>
+lit('Freewd');
       formattedTitle = parts[0] + '<span class="gradient-text">Freewd</span>' + (parts[1] || '');
     }
     
