@@ -12,6 +12,25 @@
             "icon": "https://www.blockcarft.xyz/icons/Ghost.png",
             "zone": 3
         },
+{
+            "name": "正在施工",
+            "description": "新的板块即将到来，敬请期待吧~",
+            "icon": "https://www.blockcarft.xyz/icons/Test.png",
+            "msg": "新板块即将到来~"
+        },
+{
+            "name": "正在施工",
+            "description": "新的板块即将到来，敬请期待吧~",
+            "icon": "https://www.blockcarft.xyz/icons/Test.png",
+            "msg": "新板块即将到来~"
+        },
+{
+            "name": "正在施工",
+            "description": "新的板块即将到来，敬请期待吧~",
+            "icon": "https://www.blockcarft.xyz/icons/Test.png",
+            "msg": "新板块即将到来~"
+        },
+
         {
             "name": "Bug反馈",
             "description": "点击此处反馈你所发现的Bug（部分地区需使用加速器访问Github）",
