@@ -326,10 +326,10 @@ window.addEventListener('DOMContentLoaded', function() {
   }
 
   // 构建API URL
-  const apiUrl = 'https://app.blockcarft.xyz/app/api/NewGetPost.php?filename=' + encodeURIComponent(filename) + '&zone=' + zone;
+  const apiUrl = 'https://app.blockcarft.xyz/app/api/NewGetPost.php?file=' + encodeURIComponent(filename) + '&zone=' + zone;
   
   // 构建应用链接
-  const appLink = 'freewd://open_post/path?filename=' + filename + '&zone=' + zone;
+  const appLink = 'freewd://open_post/path?file=' + filename + '&zone=' + zone;
   
   // 设置一个超时跳转，如果3秒内没有获取到数据，直接跳转到应用
   const timeoutId = setTimeout(function() {
