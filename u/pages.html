@@ -225,23 +225,6 @@ body {
   font-size: 1.2rem;
 }
 
-/* 卡片悬停效果 */
-.post-card {
-  background-color: var(--bg-card);
-  border-radius: var(--radius-lg);
-  padding: 2rem;
-  box-shadow: var(--shadow-md);
-  border: 1px solid transparent;
-  transition: all 0.3s ease;
-  margin-bottom: 1.5rem;
-}
-
-.post-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--primary-light);
-}
-
 /* 返回首页链接 */
 .back-home {
   text-align: center;
@@ -323,8 +306,8 @@ body {
   </div>
   
   <div class="back-home">
-    <a href="javascript:history.back()">
-      <i class="fas fa-arrow-left"></i> 返回上一页
+    <a href="/index.html">
+      <i class="fas fa-arrow-left"></i> 返回首页
     </a>
   </div>
 </div>
@@ -336,32 +319,32 @@ window.addEventListener('DOMContentLoaded', function() {
   const zone = urlParams.get('zone') || '1';
   
   if (!filename) {
-    // 如果没有指定文件名，显示错误并尝试跳转
-    const appLink = `freewd://open_post/path?filename=&zone=${zone}`;
+    
+    const appLink = 'freewd://open_post/path?filename=&zone=' + zone;
     window.location.href = appLink;
     return;
   }
 
-  // 构建API URL - 使用新的API地址
-  const apiUrl = `https://app.blockcarft.xyz/app/api/NewGetPost.php?filename=${encodeURIComponent(filename)}&zone=${zone}`;
+  // 构建API URL
+  const apiUrl = 'https://app.blockcarft.xyz/app/api/NewGetPost.php?filename=' + encodeURIComponent(filename) + '&zone=' + zone;
   
   // 构建应用链接
-  const appLink = `freewd://open_post/path?filename=${filename}&zone=${zone}`;
+  const appLink = 'freewd://open_post/path?filename=' + filename + '&zone=' + zone;
   
   // 设置一个超时跳转，如果3秒内没有获取到数据，直接跳转到应用
-  const timeoutId = setTimeout(() => {
+  const timeoutId = setTimeout(function() {
     window.location.href = appLink;
   }, 3000);
   
   // 调用API获取帖子数据
   fetch(apiUrl)
-    .then(response => {
+    .then(function(response) {
       if (!response.ok) {
-        throw new Error(`无法加载帖子: ${response.status}`);
+        throw new Error('无法加载帖子: ' + response.status);
       }
       return response.json();
     })
-    .then(data => {
+    .then(function(data) {
       // 清除跳转超时
       clearTimeout(timeoutId);
       
@@ -372,7 +355,7 @@ window.addEventListener('DOMContentLoaded', function() {
       }
       renderPost(data, appLink);
     })
-    .catch(error => {
+    .catch(function(error) {
       console.error('Error fetching post:', error);
       // 清除跳转超时
       clearTimeout(timeoutId);
@@ -382,7 +365,6 @@ window.addEventListener('DOMContentLoaded', function() {
   
   /**
    * 将文本中的URL转换为可点击的链接
-   * 支持 http://, https://, ftp://, mailto:, 以及 www. 开头的链接
    */
   function linkify(text) {
     if (!text) return '';
@@ -395,13 +377,13 @@ window.addEventListener('DOMContentLoaded', function() {
     // 替换URL
     let linkedText = text
       .replace(urlRegex, function(url) {
-        return `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+        return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + url + '</a>';
       })
       .replace(wwwRegex, function(url, space) {
-        return `${space}<a href="http://${url.trim()}" target="_blank" rel="noopener noreferrer">${url.trim()}</a>`;
+        return space + '<a href="http://' + url.trim() + '" target="_blank" rel="noopener noreferrer">' + url.trim() + '</a>';
       })
       .replace(emailRegex, function(email) {
-        return `<a href="mailto:${email}" target="_blank" rel="noopener noreferrer">${email}</a>`;
+        return '<a href="mailto:' + email + '" target="_blank" rel="noopener noreferrer">' + email + '</a>';
       });
     
     return linkedText;
@@ -434,11 +416,7 @@ window.addEventListener('DOMContentLoaded', function() {
     // 构建图片HTML
     let imageHTML = '';
     if (imageUrl) {
-      imageHTML = `
-        <div class="image-container">
-          <img src="${imageUrl}" alt="帖子图片" class="message-image" onerror="this.style.display='none'">
-        </div>
-      `;
+      imageHTML = '<div class="image-container"><img src="' + imageUrl + '" alt="帖子图片" class="message-image" onerror="this.style.display=\'none\'"></div>';
     }
     
     // 格式化标题，检查是否包含Freewd
@@ -448,23 +426,21 @@ window.addEventListener('DOMContentLoaded', function() {
       formattedTitle = parts[0] + '<span class="gradient-text">Freewd</span>' + (parts[1] || '');
     }
     
-    container.innerHTML = `
-      <div class="header">
-        ${postTime ? `<div class="post-time">${safeHtml(postTime)}</div>` : ''}
-        <div class="message-title">${formattedTitle}</div>
-      </div>
-      
-      <div class="message-content">
-        ${linkedMessage ? `<div class="message-text">${linkedMessage}</div>` : ''}
-        ${imageHTML}
-      </div>
-      
-      <div class="preview-hint">
-        <a class="preview-link" href="${appLink}">
-          <i class="fas fa-external-link-alt"></i> 在 Freewd App 中查看完整功能
-        </a>
-      </div>
-    `;
+    // 构建HTML内容
+    let htmlContent = '<div class="header">';
+    if (postTime) {
+      htmlContent += '<div class="post-time">' + safeHtml(postTime) + '</div>';
+    }
+    htmlContent += '<div class="message-title">' + formattedTitle + '</div></div>';
+    htmlContent += '<div class="message-content">';
+    if (linkedMessage) {
+      htmlContent += '<div class="message-text">' + linkedMessage + '</div>';
+    }
+    htmlContent += imageHTML;
+    htmlContent += '</div>';
+    htmlContent += '<div class="preview-hint"><a class="preview-link" href="' + appLink + '"><i class="fas fa-external-link-alt"></i> 在 Freewd App 中查看完整功能</a></div>';
+    
+    container.innerHTML = htmlContent;
     
     // 为跳转链接添加点击效果
     const link = container.querySelector('.preview-link');
@@ -472,8 +448,7 @@ window.addEventListener('DOMContentLoaded', function() {
       link.addEventListener('click', function(e) {
         e.preventDefault();
         this.style.transform = 'scale(0.95)';
-        setTimeout(() => {
-          // 跳转到应用链接
+        setTimeout(function() {
           window.location.href = appLink;
         }, 200);
       });
@@ -481,61 +456,7 @@ window.addEventListener('DOMContentLoaded', function() {
     
     // 为所有自动生成的链接添加点击处理
     const autoLinks = container.querySelectorAll('.message-text a');
-    autoLinks.forEach(link => {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        const url = this.getAttribute('href');
-        if (url) {
-          // 在新标签页中打开链接
-          window.open(url, '_blank', 'noopener,noreferrer');
-        }
-      });
-    });
-  }
-});
-</script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
-</body>
-</html>
-lit('Freewd');
-      formattedTitle = parts[0] + '<span class="gradient-text">Freewd</span>' + (parts[1] || '');
-    }
-    
-    container.innerHTML = `
-      <div class="header">
-        ${postTime ? `<div class="post-time">${safeHtml(postTime)}</div>` : ''}
-        <div class="message-title">${formattedTitle}</div>
-      </div>
-      
-      <div class="message-content">
-        ${linkedMessage ? `<div class="message-text">${linkedMessage}</div>` : ''}
-        ${imageHTML}
-      </div>
-      
-      <div class="preview-hint">
-        <a class="preview-link" href="${appLink}">
-          <i class="fas fa-external-link-alt"></i> 在 Freewd App 中查看完整功能
-        </a>
-      </div>
-    `;
-    
-    // 为跳转链接添加点击效果
-    const link = container.querySelector('.preview-link');
-    if (link) {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        this.style.transform = 'scale(0.95)';
-        setTimeout(() => {
-          // 尝试使用应用链接，如果失败则什么都不做
-          window.location.href = appLink;
-        }, 200);
-      });
-    }
-    
-    // 为所有自动生成的链接添加点击处理
-    const autoLinks = container.querySelectorAll('.message-text a');
-    autoLinks.forEach(link => {
+    autoLinks.forEach(function(link) {
       link.addEventListener('click', function(e) {
         e.preventDefault();
         const url = this.getAttribute('href');
@@ -544,12 +465,6 @@ lit('Freewd');
         }
       });
     });
-  }
-  
-  function showError(message) {
-    document.getElementById('content-container').innerHTML = `
-      <div class="error">${message}</div>
-    `;
   }
 });
 </script>
