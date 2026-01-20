@@ -39,19 +39,20 @@
       --radius-full: 9999px;
       --navbar-height: 4.5rem;
     }
-body{
-   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       line-height: 1.6;
       color: var(--text-primary);
       background-color: var(--bg-light);
       overflow-x: hidden;
-      background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-      background-color: var(--bg-light);
+      background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
       padding-top: var(--navbar-height);
-}
+    }
+
     .container {
       width: 100%;
       max-width: 1200px;
@@ -73,7 +74,7 @@ body{
 
     .nav-container {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
       padding: 1rem 1.5rem;
       max-width: 1200px;
@@ -105,47 +106,11 @@ body{
       color: transparent;
     }
 
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-primary);
-      font-weight: 500;
-      font-size: 1rem;
-      transition: all 0.2s ease;
-      position: relative;
-      padding: 0.5rem 0;
-    }
-
-    .nav-links a:hover {
-      color: var(--primary-color);
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
-      transition: width 0.3s ease;
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
     .hero {
       padding: 4rem 0 6rem;
       background: linear-gradient(135deg, rgba(10, 10, 15, 0.9) 0%, rgba(20, 20, 30, 0.8) 100%);
       position: relative;
       overflow: hidden;
-      margin-top: 0;
     }
 
     .hero::before {
@@ -173,12 +138,6 @@ body{
       position: relative;
       z-index: 1;
       min-height: calc(100vh - var(--navbar-height));
-    }
-
-    @media (min-width: 992px) {
-      .hero-container {
-        flex-direction: row;
-      }
     }
 
     .hero-content {
@@ -254,18 +213,6 @@ body{
       color: var(--primary-color);
       transform: translateY(-2px);
       box-shadow: var(--shadow-md);
-    }
-
-    .btn-icon {
-      width: 1.25rem;
-      height: 1.25rem;
-    }
-
-    .hero-image {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
 
     .announcement-box {
@@ -350,6 +297,10 @@ body{
       .features-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+      
+      .hero-container {
+        flex-direction: row;
+      }
     }
 
     .feature-card {
@@ -381,9 +332,8 @@ body{
       margin-bottom: 1.5rem;
     }
 
-    .feature-icon svg {
-      width: 1.75rem;
-      height: 1.75rem;
+    .feature-icon i {
+      font-size: 1.75rem;
       color: var(--primary-color);
     }
 
@@ -392,9 +342,6 @@ body{
       font-weight: 600;
       margin-bottom: 0.75rem;
       color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: 10px;
     }
 
     .feature-card p {
@@ -453,7 +400,7 @@ body{
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 1.5rem;
-      margin-top: 2rem;
+      padding: 1.5rem;
     }
 
     .photo-grid img {
@@ -586,10 +533,6 @@ body{
         font-size: 2rem;
       }
 
-      .nav-links {
-        gap: 1.5rem;
-      }
-
       .photo-grid {
         grid-template-columns: 1fr;
       }
@@ -646,7 +589,6 @@ body{
       }
     }
 
-    /* 滚动动画 */
     .fade-in {
       opacity: 0;
       transform: translateY(20px);
@@ -661,13 +603,13 @@ body{
 </head>
 
 <body>
-  <!-- Navigation -->
   <nav class="navbar">
     <div class="nav-container">
       <div class="nav-logo">
-        <img src="/img/index/FreewdIcon.png" alt="Freewd服务器" class="logo-img">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACwSURBVHgB7dWxDYAwDETRw1IxAwUjsAIDUCQaNqCgJ6Rk2fF9J8V/6V4o+J6ZQZKkJ7iSJKmFA0mSWjgo3nvvV1X7hJk5q9q3QZKkFg4kSWrhQJKkFg5OSJLUwsEpSZJaOJz6gZk5q9q3QZKkFg4kSWrh4IQkSS0cnJIkqYXDqR+YmbOqfRskSWrhQJKkFg5OSJLUwsEpSZJaOJz6gZk5q9q3QZKkFg4kSWrh4IQkSS0cnJIkqYXDqR+YmbOqfRskSWrhQJKkFg5OSJLUwsEpSZJaOJz6gZk5q9q3QZKkFg4kSWrh4IQkSS0cnJIkqYXDqR+YmbOqfRskSWrhQJKkFg5OSJLUwsEpSZJaOPwAGpR5YqNfF6IAAAAASUVORK5CYII=" alt="Freewd服务器" class="logo-img">
         <span class="logo-text">Freewd 4.0</span>
-
+      </div>
+    </div>
   </nav>
 
   <section class="hero">
@@ -684,12 +626,14 @@ body{
         <div class="announcement-box fade-in">
           <div class="announcement-title">Freewd 4.0 正式开服公告</div>
           <div class="announcement-content">
-            经过精心筹备，Freewd服务器将于1月20日中午12:00正式开启4.0时代！<br>
+            经过精心筹备，Freewd服务器已于1月20日中午12:00正式开启4.0时代！<br>
             我们带来了更稳定的服务器性能、更完善的游戏机制和更友好的社区环境 <br>
-            Freewd 4.0已开服欢迎大家游玩，服务器设有白名单进入之前请向管理员报备你的游戏代号
+            Freewd 4.0已开服欢迎大家游玩，服务器设有白名单，进入之前请向管理员报备你的游戏代号
             <div class="version-box">Minecraft基岩版版本: 1.21.13x</div>
           </div>
         </div>
+
+        <div id="countdown" class="countdown fade-in">服务器已开放！</div>
 
         <div class="hero-buttons">
           <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=zR0m7hUzJUNaHzqfMPQxWzaFcLJzckAc4gat8AgzvTDMiyG6ViHHFkjiPfTlHE5P&busi_data=eyJncm91cENvZGUiOiIzNDA3MDc0NzEiLCJ0b2tlbiI6IlgvUVpjMFpOTEJVb0dnQ0pvbUduWXJnSy85RW5OT1dyK21EVm9Sa2cwSXdOZ1U2Z2dBc2N4NDJ4NWZkZUsrYjQiLCJ1aW4iOiIyMjE2MzY4NzA1In0=&data=sTv2AlbXLN5f5tyokesRc0__sf1piMoixnhhjdVT5wXjvyMutQ1L-XOi5jDObB0CC0YI1NVO-ZOuRW25rTccDA&svctype=4&tempid=h5_group_info"
@@ -704,7 +648,6 @@ body{
     </div>
   </section>
 
-  <!-- Features Section -->
   <section id="features" class="features">
     <div class="container">
       <h2 class="section-title fade-in">服务器核心特色</h2>
@@ -712,28 +655,28 @@ body{
       <div class="features-grid">
         <div class="feature-card fade-in">
           <div class="feature-icon">
-            <i class="fas fa-shield-alt" style="font-size: 1.75rem; color: #4db8ff;"></i>
+            <i class="fas fa-shield-alt"></i>
           </div>
           <h3>安心建造体验</h3>
           <p>禁用苦力怕爆炸，保护玩家建筑成果，让创意不受意外破坏。专注于创造与建设，无需担心心血被毁。</p>
         </div>
         <div class="feature-card fade-in">
           <div class="feature-icon">
-            <i class="fas fa-lock" style="font-size: 1.75rem; color: #4db8ff;"></i>
+            <i class="fas fa-lock"></i>
           </div>
           <h3>资源安全保护</h3>
           <p>独家保护插件保障个人物品安全，防止盗窃与误操作，游戏更安心。你的努力成果将得到充分保护。</p>
         </div>
         <div class="feature-card fade-in">
           <div class="feature-icon">
-            <i class="fas fa-users" style="font-size: 1.75rem; color: #4db8ff;"></i>
+            <i class="fas fa-users"></i>
           </div>
           <h3>友好社区氛围</h3>
           <p>活跃友善的玩家群体与管理团队，为你提供帮助与陪伴，不再孤独生存。一起探索、建造、分享乐趣。</p>
         </div>
         <div class="feature-card fade-in">
           <div class="feature-icon">
-            <i class="fas fa-gamepad" style="font-size: 1.75rem; color: #4db8ff;"></i>
+            <i class="fas fa-gamepad"></i>
           </div>
           <h3>公益自由玩法</h3>
           <p>纯净无收费，无强制捐赠，提供纯粹、自由、可持续的游戏体验。回归Minecraft最初的美好。</p>
@@ -742,7 +685,6 @@ body{
     </div>
   </section>
 
-  <!-- Gallery Section -->
   <section id="gallery" class="gallery">
     <div class="container">
       <h2 class="section-title fade-in">Freewd 3.0 精彩瞬间</h2>
@@ -750,16 +692,16 @@ body{
 
       <div class="gallery-container">
         <div class="gallery-item fade-in">
-          <img src="https://www.blockcarft.xyz/img/index/CoverMain.jpg" alt="Freewd 3.0关服合照">
+          <img src="/img/index/CoverMain.jpg" alt="Minecraft游戏场景">
           <p>Freewd 3.0 关服合照 - 纪念我们一起度过的美好时光</p>
         </div>
 
         <div class="gallery-item fade-in">
           <div class="photo-grid">
-            <img src="/img/index/Cover1.png" alt="Freewd 3.0服务器日常 1">
-            <img src="/img/index/Cover2.jpeg" alt="Freewd 3.0服务器日常 2">
-            <img src="/img/index/Cover3.jpg" alt="Freewd 3.0服务器日常 3">
-            <img src="/img/index/Cover4.jpg" alt="Freewd 3.0服务器日常 4">
+            <img src="/img/index/Cover1.jpg" alt="Minecraft建筑1">
+            <img src="/img/index/Cover2.jpeg" alt="Minecraft建筑2">
+            <img src="/img/index/Cover3.jpg" alt="Minecraft建筑3">
+            <img src="/img/index/Cover4.jpg" alt="Minecraft建筑4">
           </div>
           <p>Freewd 3.0 服务器日常 - 探索、建造、生存的点点滴滴</p>
         </div>
@@ -775,7 +717,6 @@ body{
     </div>
   </section>
 
-  <!-- Server Info Section -->
   <section id="info" class="server-info">
     <div class="container">
       <h2 class="section-title fade-in">服务器信息</h2>
@@ -810,13 +751,12 @@ body{
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
         <div class="footer-section">
           <div class="footer-logo">
-            <img src="/img/index/FreewdIcon.png" alt="Freewd服务器" class="logo-img">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACwSURBVHgB7dWxDYAwDETRw1IxAwUjsAIDUCQaNqCgJ6Rk2fF9J8V/6V4o+J6ZQZKkJ7iSJKmFA0mSWjgo3nvvV1X7hJk5q9q3QZKkFg4kSWrhQJKkFg5OSJLUwsEpSZJaOJz6gZk5q9q3QZKkFg4kSWrh4IQkSS0cnJIkqYXDqR+YmbOqfRskSWrhQJKkFg5OSJLUwsEpSZJaOJz6gZk5q9q3QZKkFg4kSWrh4IQkSS0cnJIkqYXDqR+YmbOqfRskSWrhQJKkFg5OSJLUwsEpSZJaOJz6gZk5q9q3QZKkFg4kSWrh4IQkSS0cnJIkqYXDqR+YmbOqfRskSWrhQJKkFg5OSJLUwsEpSZJaOPwAGpR5YqNfF6IAAAAASUVORK5CYII=" alt="Freewd服务器" class="logo-img">
             <span class="logo-text">Freewd服务器</span>
           </div>
           <p>基岩版 Minecraft 公益服，为你带来纯净、友好的游戏体验</p>
@@ -829,37 +769,6 @@ body{
   </footer>
 
   <script>
-    function updateCountdown() {
-      const now = new Date();
-      const currentYear = now.getFullYear();
-      const currentMonth = now.getMonth();
-
-      let launchDate = new Date(currentYear, currentMonth, 20, 12, 0, 0);
-
-      if (now > launchDate) {
-        launchDate = new Date(currentYear, currentMonth + 1, 20, 12, 0, 0);
-      }
-
-      const timeDiff = launchDate - now;
-
-      if (timeDiff <= 0) {
-        document.getElementById("countdown").innerHTML = "服务器已开放！";
-        return;
-      }
-
-      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-
-      document.getElementById("countdown").innerHTML =
-        `开服倒计时: ${days}天 ${hours}小时 ${minutes}分 ${seconds}秒`;
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-
-    // 滚动动画
     document.addEventListener("DOMContentLoaded", function () {
       const fadeElements = document.querySelectorAll('.fade-in');
 
@@ -873,35 +782,6 @@ body{
 
       fadeElements.forEach(element => {
         fadeInObserver.observe(element);
-      });
-
-      const now = new Date();
-      const monthNames = ["一月", "二月", "三月", "四月", "五月", "六月",
-        "七月", "八月", "九月", "十月", "十一月", "十二月"];
-
-      const monthElements = document.querySelectorAll('.announcement-content, .info-item p');
-      monthElements.forEach(el => {
-        if (el.textContent.includes('本月20日')) {
-          el.innerHTML = el.innerHTML.replace(/本月20日/g, monthNames[now.getMonth()] + "20日");
-        }
-      });
-
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-
-          const targetId = this.getAttribute('href');
-          if (targetId === '#') return;
-
-          const targetElement = document.querySelector(targetId);
-          if (targetElement) {
-            const navbarHeight = document.querySelector('.navbar').offsetHeight;
-            window.scrollTo({
-              top: targetElement.offsetTop - navbarHeight,
-              behavior: 'smooth'
-            });
-          }
-        });
       });
     });
   </script>
