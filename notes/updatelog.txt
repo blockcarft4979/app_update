@@ -6,6 +6,8 @@ Freewd 社区感谢有您~
 
 本社区于2025年8月13日成立
 
+（此更新日志仅记录重要版本更新日志）
+
 1.0.0
 
 第一个 Freewd 社区版本发布
@@ -59,8 +61,6 @@ Freewd 社区正式版发布
 2.3.0
 
 更换签名
-修复从通知页打开帖子时
-无法删除自己评论的 Bug
 
 © 2026·由BLOCKCARFT开发
 Github：https://github.com/blockcarft4979/freewd_community/releases
