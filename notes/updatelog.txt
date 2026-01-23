@@ -59,4 +59,5 @@ Freewd 社区正式版发布
 修复从通知页打开帖子时
 无法删除自己评论的 Bug
 
-© 2026·BLOCKCARFT. All rights reserved.
+© 2026·由BLOCKCARFT开发
+Github：https://github.com/blockcarft4979/freewd_community/releases
