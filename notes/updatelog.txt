@@ -58,3 +58,5 @@ Freewd 社区正式版发布
 更换签名
 修复从通知页打开帖子时
 无法删除自己评论的 Bug
+
+© 2026·BLOCKCARFT. All rights reserved.
