@@ -1,10 +1,6 @@
 {
     "zone": [
 {
-            "name": "社区更新公告",
-            "description": "新版本将取消HTML功能",
-            "icon": "https://www.blockcarft.xyz/icons/Announcement.png"
-        },
         {
             "name": "闲聊吧",
             "description": "吹吹牛、灌水、分享日常都可以哦",
@@ -16,12 +12,6 @@
             "description": "快来看看小幽灵们都说了些什么吧（和联机交友一样超级冷门）",
             "icon": "https://www.blockcarft.xyz/icons/Ghost.png",
             "zone": 3
-        },
-{
-            "name": "正在施工",
-            "description": "新的板块即将到来，敬请期待吧~",
-            "icon": "https://www.blockcarft.xyz/icons/Test.png",
-            "msg": "新板块即将到来~"
         },
         {
             "name": "Bug反馈",
