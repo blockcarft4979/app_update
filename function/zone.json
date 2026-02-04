@@ -13,12 +13,6 @@
             "description": "快来看看小幽灵们都说了些什么吧（和联机交友一样超级冷门）",
             "icon": "https://www.blockcarft.xyz/icons/Ghost.png",
             "msg": "没什么人用，咋们就不要看了吧😔"
-        },
-        {
-            "name": "Bug反馈",
-            "description": "点击此处反馈你所发现的Bug（部分地区需使用加速器访问Github）",
-            "icon": "https://www.blockcarft.xyz/icons/Github.png",
-            "link": "https://github.com/blockcarft4979/freewd_community/issues"
         }
     ]
 }
