@@ -5,13 +5,14 @@
             "name": "闲聊吧",
             "description": "吹吹牛、灌水、分享日常都可以哦",
             "icon": "https://www.blockcarft.xyz/icons/Daily.png",
-            "zone": 1
+            "zone": 1,
+            "msg": "看看吧以后就不见了😔"
         },
         {
             "name": "匿名吧",
             "description": "快来看看小幽灵们都说了些什么吧（和联机交友一样超级冷门）",
             "icon": "https://www.blockcarft.xyz/icons/Ghost.png",
-            "zone": 3
+            "msg": "没什么人用，咋们就不要看了吧😔"
         },
         {
             "name": "Bug反馈",
