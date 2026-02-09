@@ -281,14 +281,12 @@
         async function loadValidPlayers() {
             try {
                 const response = await fetch('list.json');
-                if (!response.ok) {
-                    throw new Error('无法加载玩家列表');
-                }
+                if (!response.ok) throw new Error('无法加载玩家列表');
                 const data = await response.json();
                 return data.map(player => player.name);
             } catch (error) {
                 console.error('加载玩家列表失败:', error);
-                return []; // 返回空数组作为默认值
+                return [];
             }
         }
 
@@ -303,18 +301,29 @@
             { name: "谢谢惠顾", weight: 169, min: 0, max: 0 }
         ];
 
-        // 从 localStorage 读取当前 IP 的抽奖次数（模拟IP限制）
-        function getTodayKey() {
-            const today = new Date().toISOString().slice(0, 10);
-            return `drawCount_${today}`;
+        // 获取当天日期作为key的一部分
+        function getCurrentDate() {
+            return new Date().toISOString().slice(0, 10);
         }
 
+        // 从 localStorage 读取当前 IP 的抽奖次数
         function getDrawCount() {
-            return parseInt(localStorage.getItem(getTodayKey()), 10) || 0;
+            const lastDate = localStorage.getItem('lastDrawDate');
+            const currentDate = getCurrentDate();
+            
+            // 如果是新的一天，重置抽奖次数
+            if (lastDate !== currentDate) {
+                localStorage.setItem('lastDrawDate', currentDate);
+                localStorage.setItem('drawCount', '0');
+                return 0;
+            }
+            
+            return parseInt(localStorage.getItem('drawCount'), 10) || 0;
         }
 
         function setDrawCount(count) {
-            localStorage.setItem(getTodayKey(), count);
+            localStorage.setItem('drawCount', count.toString());
+            localStorage.setItem('lastDrawDate', getCurrentDate());
         }
 
         // 玩家ID相关
@@ -401,10 +410,15 @@
         }
 
         function updateUI() {
+            // 每次更新UI时检查日期是否变化
+            drawCount = getDrawCount();
             chanceInfo.textContent = `今日剩余抽奖次数：${maxChances - drawCount} 次`;
             if (drawCount >= maxChances) {
                 drawButton.disabled = true;
                 drawButton.textContent = "今日次数已用完";
+            } else {
+                drawButton.disabled = false;
+                drawButton.textContent = "开始抽奖";
             }
         }
 
