@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freewd 4.0 矿石抽奖活动</title>
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* 全局样式 */
+        body {
+            background-color: #191919;
+            color: #eaeaea;
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+            line-height: 1.7;
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            min-height: 100vh;
+        }
+        
+        /* 标题样式 */
+        h1 {
+            text-align: center;
+            color: #00aaff;
+            margin-bottom: 35px;
+            font-size: 2.2em;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+        
+        h2 {
+            color: #4db8ff;
+            margin-top: 30px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 6px;
+            font-size: 1.5em;
+        }
+        
+        /* 文本样式 */
+        p {
+            margin-bottom: 14px;
+            font-size: 1.05em;
+        }
+        
+        ul, ol {
+            margin-bottom: 15px;
+            padding-left: 25px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        /* 内容区块样式 */
+        .agreement-section {
+            margin-bottom: 25px;
+            background-color: #222;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 页脚样式 */
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #666;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+        
+        /* 链接样式 */
+        a {
+            color: #66cfff;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        a:hover {
+            color: #00aaff;
+            text-decoration: underline;
+        }
+        
+        /* 高亮样式 */
+        .highlight {
+            font-weight: bold;
+            color: #ff9966;
+        }
+        
+        .underline {
+            text-decoration: underline;
+            text-decoration-color: #ff9966;
+        }
+        
+        /* 奖品显示区域 */
+        .prize-display {
+            text-align: center;
+            font-size: 1.4em;
+            margin: 25px 0;
+            min-height: 40px;
+            padding: 15px;
+            background-color: #222;
+            border-radius: 6px;
+            border-left: 4px solid #00aaff;
+        }
+        
+        /* 按钮样式 */
+        button {
+            display: block;
+            margin: 20px auto;
+            background-color: #00aaff;
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1.1em;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        button:hover {
+            background-color: #008ecc;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* 抽奖信息样式 */
+        .chance-info {
+            text-align: center;
+            color: #999;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+            padding: 8px;
+            background-color: #222;
+            border-radius: 4px;
+        }
+        
+        /* 玩家ID输入区域 */
+        .player-id-input {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #222;
+            border-radius: 6px;
+        }
+        
+        /* 输入框样式 */
+        input {
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid #444;
+            background-color: #333;
+            color: #fff;
+            width: 200px;
+            font-size: 1em;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #00aaff;
+            box-shadow: 0 0 5px rgba(0, 170, 255, 0.5);
+        }
+        
+        /* 玩家信息显示 */
+        .player-info {
+            text-align: center;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #4db8ff;
+            padding: 10px;
+            background-color: #222;
+            border-radius: 4px;
+        }
+        
+        /* 错误消息样式 */
+        .error-message {
+            color: #ff5555;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9em;
+            padding: 5px;
+            background-color: rgba(255, 85, 85, 0.1);
+            border-radius: 4px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+                margin-bottom: 20px;
+            }
+            
+            .agreement-section {
+                padding: 10px;
+            }
+            
+            button {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+            
+            .player-id-input {
+                padding: 15px;
+            }
+            
+            input {
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Freewd 4.0 矿石抽奖活动</h1>
+
+    <div id="playerIdSection" class="player-id-input">
+        <h2>请输入你的游戏ID</h2>
+        <input type="text" id="playerIdInput" placeholder="输入你的游戏ID" maxlength="20">
+        <button id="submitIdButton">确认</button>
+        <div id="errorMessage" class="error-message"></div>
+    </div>
+
+    <div id="lotterySection" style="display: none;">
+        <p>欢迎 <span id="playerNameDisplay" class="highlight"></span> 来到 Freewd 4.0 矿石抽奖活动！有机会获得超级大奖 —— <span class="highlight">下界合金块 ×2</span>！</p>
+
+        <div class="agreement-section">
+            <h2>活动规则</h2>
+            <ul>
+                <li>每次抽奖将随机获得一种矿石奖励。</li>
+                <li>奖品包括：<span class="underline">煤炭、铁锭、金锭、绿宝石、钻石、下界合金块×2（大奖）</span>，以及"谢谢惠顾"。</li>
+                <li><span class="highlight">大奖概率为 0.1%</span>，祝你好运！</li>
+                <li>每个 IP 每天最多可抽奖 <span class="highlight">5 次</span>。</li>
+                <li>抽奖结果即时显示，奖品仅限虚拟展示。</li>
+            </ul>
+        </div>
+
+        <div class="player-info">
+            玩家: <span id="currentPlayerId"></span>
+        </div>
+
+        <div class="chance-info" id="chanceInfo">今日剩余抽奖次数：5 次</div>
+
+        <button id="drawButton">开始抽奖</button>
+
+        <div class="prize-display" id="prizeResult"></div>
+    </div>
+
+    <div class="footer">
+        © 2026 Freewd 4.0 矿石抽奖活动 | Freewd
+    </div>
+
+    <script>
+        // 从list.json加载合法玩家列表
+        async function loadValidPlayers() {
+            try {
+                const response = await fetch('list.json');
+                if (!response.ok) {
+                    throw new Error('无法加载玩家列表');
+                }
+                const data = await response.json();
+                return data.map(player => player.name);
+            } catch (error) {
+                console.error('加载玩家列表失败:', error);
+                return []; // 返回空数组作为默认值
+            }
+        }
+
+        // 奖品列表及权重和数量范围
+        const prizes = [
+            { name: "煤炭", weight: 300, min: 80, max: 128 },
+            { name: "铁锭", weight: 250, min: 40, max: 64 },
+            { name: "金锭", weight: 150, min: 45, max: 70 },
+            { name: "绿宝石", weight: 80, min: 10, max: 20 },
+            { name: "钻石", weight: 50, min: 3, max: 10 },
+            { name: "下界合金块 ×2（大奖）", weight: 1, min: 2, max: 2 },
+            { name: "谢谢惠顾", weight: 169, min: 0, max: 0 }
+        ];
+
+        // 从 localStorage 读取当前 IP 的抽奖次数（模拟IP限制）
+        function getTodayKey() {
+            const today = new Date().toISOString().slice(0, 10);
+            return `drawCount_${today}`;
+        }
+
+        function getDrawCount() {
+            return parseInt(localStorage.getItem(getTodayKey()), 10) || 0;
+        }
+
+        function setDrawCount(count) {
+            localStorage.setItem(getTodayKey(), count);
+        }
+
+        // 玩家ID相关
+        function getPlayerId() {
+            return localStorage.getItem('playerId');
+        }
+
+        function setPlayerId(id) {
+            localStorage.setItem('playerId', id);
+        }
+
+        const maxChances = 5;
+        let drawCount = getDrawCount();
+
+        // 获取DOM元素
+        const playerIdSection = document.getElementById('playerIdSection');
+        const lotterySection = document.getElementById('lotterySection');
+        const playerIdInput = document.getElementById('playerIdInput');
+        const submitIdButton = document.getElementById('submitIdButton');
+        const playerNameDisplay = document.getElementById('playerNameDisplay');
+        const currentPlayerId = document.getElementById('currentPlayerId');
+        const chanceInfo = document.getElementById('chanceInfo');
+        const drawButton = document.getElementById('drawButton');
+        const prizeResult = document.getElementById('prizeResult');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // 初始化应用
+        async function init() {
+            // 检查是否已有玩家ID且在合法列表中
+            const savedPlayerId = getPlayerId();
+            if (savedPlayerId) {
+                const validPlayers = await loadValidPlayers();
+                if (validPlayers.includes(savedPlayerId)) {
+                    showLotterySection(savedPlayerId);
+                }
+            }
+
+            // 提交玩家ID
+            submitIdButton.addEventListener('click', async () => {
+                const playerId = playerIdInput.value.trim();
+                if (playerId.length < 3 || playerId.length > 20) {
+                    errorMessage.textContent = '游戏ID长度需在3-20个字符之间';
+                    return;
+                }
+                
+                const players = await loadValidPlayers();
+                if (!players.includes(playerId)) {
+                    errorMessage.textContent = '该ID不在合法玩家列表中，无法参与抽奖';
+                    return;
+                }
+                
+                errorMessage.textContent = '';
+                setPlayerId(playerId);
+                showLotterySection(playerId);
+            });
+
+            // 抽奖按钮事件
+            drawButton.addEventListener('click', () => {
+                if (drawCount >= maxChances) return;
+                drawCount++;
+                setDrawCount(drawCount);
+                updateUI();
+
+                const result = weightedRandom(prizes);
+
+                // 动画效果
+                prizeResult.textContent = "抽奖中...";
+                setTimeout(() => {
+                    if (result.quantity > 0) {
+                        prizeResult.innerHTML = `<span class="highlight">恭喜你获得了：${result.name} ×${result.quantity}</span>`;
+                    } else {
+                        prizeResult.innerHTML = `<span class="highlight">${result.name}</span>`;
+                    }
+                }, 600);
+            });
+        }
+
+        function showLotterySection(playerId) {
+            playerIdSection.style.display = 'none';
+            lotterySection.style.display = 'block';
+            playerNameDisplay.textContent = playerId;
+            currentPlayerId.textContent = playerId;
+            updateUI();
+        }
+
+        function updateUI() {
+            chanceInfo.textContent = `今日剩余抽奖次数：${maxChances - drawCount} 次`;
+            if (drawCount >= maxChances) {
+                drawButton.disabled = true;
+                drawButton.textContent = "今日次数已用完";
+            }
+        }
+
+        // 获取随机数量
+        function getRandomQuantity(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // 加权随机抽取
+        function weightedRandom(items) {
+            const totalWeight = items.reduce((sum, item) => sum + item.weight, 0);
+            let random = Math.random() * totalWeight;
+            for (const item of items) {
+                if (random < item.weight) {
+                    const quantity = getRandomQuantity(item.min, item.max);
+                    return { name: item.name, quantity };
+                }
+                random -= item.weight;
+            }
+            return { name: items[items.length - 1].name, quantity: 0 };
+        }
+
+        // 启动应用
+        init();
+    </script>
+</body>
+</html>
