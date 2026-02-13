@@ -355,65 +355,50 @@
         }
         
         .gallery-container {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 2rem;
-          margin-top: 3rem;
-        }
-        
-        @media (min-width: 768px) {
-          .gallery-container {
-            grid-template-columns: repeat(2, 1fr);
-          }
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 3rem;
         }
         
         .gallery-item {
-          background-color: var(--bg-card);
-          border-radius: var(--radius-lg);
-          overflow: hidden;
-          box-shadow: var(--shadow-md);
-          border: 1px solid transparent;
-          transition: all 0.3s ease;
+          width: 100%;
+          margin-bottom: 3rem;
+          text-align: center;
         }
         
-        .gallery-item:hover {
-          transform: translateY(-5px);
-          box-shadow: var(--shadow-lg);
-          border-color: var(--primary-light);
+        .gallery-item h3 {
+          color: var(--primary-light);
+          margin-bottom: 1.5rem;
+          font-size: 1.5rem;
         }
         
         .gallery-item img {
           width: 100%;
-          height: 200px;
-          object-fit: cover;
+          max-width: 800px;
+          height: auto;
+          max-height: 500px;
+          object-fit: contain;
+          border-radius: var(--radius-lg);
+          box-shadow: var(--shadow-lg);
+          margin: 0 auto;
           display: block;
         }
         
-        .gallery-item p {
-          padding: 1.5rem;
-          text-align: center;
-          color: var(--text-primary);
-          font-size: 1rem;
+        .single-image {
+          margin: 2rem 0;
         }
         
-        .photo-grid {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 1.5rem;
-          padding: 1.5rem;
-        }
-        
-        .photo-grid img {
+        .single-image img {
           width: 100%;
-          height: 180px;
-          object-fit: cover;
-          border-radius: var(--radius-md);
-          border: 1px solid var(--border-color);
-          transition: transform 0.3s ease;
-        }
-        
-        .photo-grid img:hover {
-          transform: scale(1.02);
+          max-width: 800px;
+          height: auto;
+          max-height: 500px;
+          object-fit: contain;
+          border-radius: var(--radius-lg);
+          box-shadow: var(--shadow-lg);
+          margin: 0 auto;
+          display: block;
         }
         
         .server-info {
@@ -533,14 +518,6 @@
             font-size: 2rem;
           }
         
-          .photo-grid {
-            grid-template-columns: 1fr;
-          }
-        
-          .photo-grid img {
-            height: 150px;
-          }
-        
           .btn-group {
             flex-direction: column;
             align-items: center;
@@ -582,10 +559,6 @@
         
           .countdown {
             font-size: 1.4rem;
-          }
-        
-          .gallery-container {
-            grid-template-columns: 1fr;
           }
         }
         
@@ -683,28 +656,56 @@
 
     <section id="gallery" class="gallery">
         <div class="container">
+            <h2 class="section-title fade-in">服务器实景展示</h2>
+            <p class="section-subtitle fade-in">看看我们的玩家在Minecraft世界中的精彩创作</p>
             <div class="gallery-container">
+                <!-- 合照单独显示在上方 -->
                 <div class="gallery-item fade-in">
-                    <p>Freewd 3.0 关服合照</p>
-                    <img src="/img/index/CoverMain.jpg" alt="Minecraft游戏场景">
+                    <h3>Freewd 3.0 关服合照</h3>
+                    <div class="single-image">
+                        <img src="/img/index/CoverMain.jpg" alt="Minecraft游戏场景">
+                    </div>
                 </div>
 
+                <!-- 日常图片单列显示 -->
                 <div class="gallery-item fade-in">
-                    <div class="photo-grid">
-                        <p>Freewd 3.0 日常</p>
+                    <h3>Freewd 3.0 日常</h3>
+                    <div class="single-image">
                         <img src="/img/index/Cover1.png" alt="Minecraft建筑1">
+                    </div>
+                    <div class="single-image">
                         <img src="/img/index/Cover2.jpeg" alt="Minecraft建筑2">
+                    </div>
+                    <div class="single-image">
                         <img src="/img/index/Cover3.jpg" alt="Minecraft建筑3">
+                    </div>
+                    <div class="single-image">
                         <img src="/img/index/Cover4.jpg" alt="Minecraft建筑4">
                     </div>
-                    <p>Freewd 4.0 进行中…</p>
-                    <div class="photo-grid">
+                </div>
+
+                <!-- 4.0版本图片单列显示 -->
+                <div class="gallery-item fade-in">
+                    <h3>Freewd 4.0 进行中…</h3>
+                    <div class="single-image">
                         <img src="/img/index/Cover5.jpg" alt="Minecraft建筑1">
+                    </div>
+                    <div class="single-image">
                         <img src="/img/index/Cover6.jpg" alt="Minecraft建筑2">
+                    </div>
+                    <div class="single-image">
                         <img src="/img/index/Cover7.jpg" alt="Minecraft建筑3">
+                    </div>
+                    <div class="single-image">
                         <img src="/img/index/Cover8.jpg" alt="Minecraft建筑4">
+                    </div>
+                    <div class="single-image">
                         <img src="/img/index/Cover9.jpg" alt="Minecraft建筑5">
+                    </div>
+                    <div class="single-image">
                         <img src="/img/index/Cover10.jpg" alt="Minecraft建筑6">
+                    </div>
+                    <div class="single-image">
                         <img src="/img/index/Cover11.jpg" alt="Minecraft建筑7">
                     </div>
                 </div>
@@ -717,6 +718,7 @@
                     </div>
                 </div>
             </div>
+        </div>
     </section>
 
     <section id="info" class="server-info">
@@ -738,6 +740,7 @@
                     <p>1月20日 中午12:00</p>
                 </div>
             </div>
+        </div>
     </section>
 
     <footer class="footer">
@@ -775,5 +778,4 @@
         });
     </script>
 </body>
-
 </html>
