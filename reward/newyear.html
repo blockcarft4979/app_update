@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Freewd 社区-除夕新年特别版</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: radial-gradient(circle at top, #7a0000, #3b0000 70%);
+    color: #fff5e6;
+    font-family: "Microsoft YaHei", Arial, sans-serif;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* 金色标题 */
+h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    background: linear-gradient(45deg, #ffd700, #ffae00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px #ffcc00; }
+    to { text-shadow: 0 0 25px #ffea00; }
+}
+
+/* 内容卡片 */
+.card {
+    background: rgba(120, 0, 0, 0.6);
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+}
+
+/* 按钮 */
+button {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 30px;
+    font-size: 1.1em;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(45deg, #ffd700, #ff9900);
+    color: #7a0000;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #ffd700;
+}
+
+/* 抽奖展示 */
+.prize-display {
+    text-align: center;
+    font-size: 1.5em;
+    padding: 20px;
+    margin-top: 20px;
+    background: rgba(255, 215, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* 烟花小动画 */
+.firework {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: gold;
+    border-radius: 50%;
+    animation: explode 1.5s infinite;
+}
+
+@keyframes explode {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(20); opacity: 0; }
+}
+
+.footer {
+    text-align: center;
+    margin-top: 50px;
+    color: #ffcc66;
+    font-size: 0.9em;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 自动播放背景音乐 -->
+<audio src="bg.mp3" autoplay loop></audio>
+
+<h1>Freewd 社区<br>除夕快乐</h1>
+
+<div class="card">
+    <h2>新年祝福</h2>
+    <p>感谢大家一路陪伴 Freewd 社区成长！</p>
+    <p>愿新的一年：Bug 全消失，用户暴涨，服务器永不宕机！</p>
+</div>
+
+<div class="card">
+    <h2>新年抽奖（仅供娱乐）</h2>
+    <button onclick="drawPrize()">点击抽取新年好运</button>
+    <div class="prize-display" id="prize">等待抽奖中...</div>
+</div>
+
+<div class="footer">
+    © 2026 Freewd 社区 | 新春特别版
+</div>
+
+<!-- 烟花装饰 -->
+<div class="firework" style="top:10%; left:20%;"></div>
+<div class="firework" style="top:30%; left:70%; animation-delay:0.5s;"></div>
+<div class="firework" style="top:60%; left:40%; animation-delay:1s;"></div>
+
+<script>
+const prizes = [
+"💎 钻石级好运",
+    "🔥 开发效率 +100%",
+    "🎉 粉丝暴涨 Buff",
+    "🧧 大红包一份",
+    "🚀 版本 4.0 无Bug神话",
+    "🌟 欧皇附体",
+    "🍀 全年无Bug成就",
+    "📈 用户增长翻倍",
+    "🎮 获得限定开发者皮肤",
+    "✨ 神秘彩蛋一个",
+    "🍲 年夜饭豪华套餐券",
+    "🎵 年度最佳BGM专辑",
+    "🏆 社区荣誉勋章",
+    "💻 顶级机械键盘",
+    "📱 最新旗舰手机",
+    "✈️ 双人浪漫旅行",
+    "📚 技术书籍大礼包",
+    "🎓 大师课程免费名额",
+    "🐉 神龙祝福加持",
+    "🌠 流星许愿特权"
+];
+
+function drawPrize() {
+    const index = Math.floor(Math.random() * prizes.length);
+    document.getElementById("prize").innerText = prizes[index];
+}
+</script>
+
+</body>
+</html>
