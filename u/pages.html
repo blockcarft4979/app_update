@@ -282,7 +282,8 @@ function getJumpParams() {
   
   let appUrl = 'freewd://open_post/path';
   if (filename) {
-    appUrl += `?file=${encodeURIComponent(filename)}&zone=${zone}`;
+    // 修改为使用filename参数
+    appUrl += `?filename=${encodeURIComponent(filename)}&zone=${zone}`;
   }
   
   return { filename, zone, appUrl };
