@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name='description' content='欢迎来到 Freewd 4.0服务器官方网站，公益服务器 · 纯净无收费 · 透明开放，欢迎每一位玩家的加入与监督！服务器版本：26.0.x，开服时间：2026年1月20日中午12点' />
+    <meta name='description' content='新春快乐！欢迎来到 Freewd 4.0服务器官方网站，公益服务器 · 纯净无收费 · 透明开放，欢迎每一位玩家的加入与监督！服务器版本：26.0.x，开服时间：2026年1月20日中午12点' />
     <link rel="icon" type="image/png" href="/img/index/FreewdIcon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Freewd 基岩版 Minecraft 服务器 - 稳定纯净生存公益服｜支持 26.0.x</title>
+    <title>Freewd 新春版 - 基岩版 Minecraft 服务器 - 稳定纯净生存公益服｜支持 26.0.x</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
@@ -19,16 +19,17 @@
         }
         
         :root {
-          --primary-color: #4db8ff;
-          --primary-light: #66cfff;
-          --primary-dark: #0077cc;
-          --secondary-color: #f59e0b;
-          --text-primary: #e0e0e0;
-          --text-secondary: #a0a0a0;
-          --bg-light: #111;
-          --bg-white: #0f0f0f;
-          --bg-card: rgba(30, 30, 30, 0.9);
-          --border-color: rgba(100, 100, 100, 0.2);
+          --primary-color: #ff4d4d;
+          --primary-light: #ff6666;
+          --primary-dark: #cc0000;
+          --secondary-color: #ffd700;
+          --accent-color: #ff9500;
+          --text-primary: #fff;
+          --text-secondary: #fff3cd;
+          --bg-light: linear-gradient(135deg, #8b0000 0%, #cc0000 50%, #ff4d4d 100%);
+          --bg-white: rgba(255, 240, 240, 0.95);
+          --bg-card: rgba(200, 30, 30, 0.85);
+          --border-color: rgba(255, 215, 0, 0.4);
           --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
           --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
           --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
@@ -41,16 +42,93 @@
         }
         
         body {
-          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
           line-height: 1.6;
           color: var(--text-primary);
-          background-color: var(--bg-light);
+          background: var(--bg-light);
           overflow-x: hidden;
-          background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
           background-size: cover;
           background-position: center;
           background-attachment: fixed;
           padding-top: var(--navbar-height);
+          position: relative;
+        }
+
+        /* 新年装饰背景 */
+        .new-year-decoration {
+          position: fixed;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          pointer-events: none;
+          z-index: -1;
+          overflow: hidden;
+        }
+
+        .lantern {
+          position: absolute;
+          width: 60px;
+          height: 80px;
+          background: var(--primary-color);
+          border-radius: 30px 30px 10px 10px;
+          animation: swing 5s infinite ease-in-out;
+        }
+
+        .lantern:before, .lantern:after {
+          content: '';
+          position: absolute;
+          background: var(--secondary-color);
+        }
+
+        .lantern:before {
+          width: 100%;
+          height: 15px;
+          top: -8px;
+          border-radius: 8px;
+        }
+
+        .lantern:after {
+          width: 15px;
+          height: 25px;
+          bottom: -25px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+
+        .firework {
+          position: absolute;
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          background: var(--secondary-color);
+          animation: firework 2s infinite;
+        }
+
+        .snowflake {
+          position: absolute;
+          top: -10px;
+          color: white;
+          font-size: 1rem;
+          opacity: 0.8;
+          animation: fall linear infinite;
+        }
+
+        @keyframes swing {
+          0%, 100% { transform: translateY(0) rotate(-2deg); }
+          50% { transform: translateY(-10px) rotate(2deg); }
+        }
+
+        @keyframes firework {
+          0% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.5); opacity: 0.7; }
+          100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fall {
+          to {
+            transform: translateY(100vh) rotate(360deg);
+          }
         }
         
         .container {
@@ -64,12 +142,13 @@
           position: fixed;
           top: 0;
           width: 100%;
-          background-color: rgba(15, 15, 20, 0.9);
+          background-color: rgba(200, 30, 30, 0.9);
           backdrop-filter: blur(10px);
           z-index: 1000;
           box-shadow: var(--shadow-sm);
           transition: all 0.3s ease;
           height: var(--navbar-height);
+          border-bottom: 2px solid var(--secondary-color);
         }
         
         .nav-container {
@@ -93,37 +172,55 @@
           height: 2.5rem;
           width: 2.5rem;
           border-radius: 8px;
-          filter: drop-shadow(0 2px 4px rgba(77, 184, 255, 0.2));
+          filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.4));
           object-fit: contain;
+          border: 2px solid var(--secondary-color);
         }
         
         .logo-text {
           font-size: 1.5rem;
           font-weight: 700;
-          background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+          background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
         }
+
+        .new-year-badge {
+          display: inline-block;
+          background: var(--secondary-color);
+          color: var(--primary-dark);
+          padding: 0.3rem 1rem;
+          border-radius: var(--radius-full);
+          font-weight: 700;
+          margin-left: 0.5rem;
+          font-size: 0.9rem;
+          animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-3px); }
+        }
         
         .hero {
           padding: 4rem 0 6rem;
-          background: linear-gradient(135deg, rgba(10, 10, 15, 0.9) 0%, rgba(20, 20, 30, 0.8) 100%);
+          background: linear-gradient(135deg, rgba(139, 0, 0, 0.8) 0%, rgba(204, 0, 0, 0.7) 100%);
           position: relative;
           overflow: hidden;
         }
         
         .hero::before {
-          content: '';
+          content: '福';
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 100%;
-          background:
-            radial-gradient(circle at 20% 80%, rgba(77, 184, 255, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%) rotate(180deg);
+          font-size: 25rem;
+          font-family: 'Ma Shan Zheng', cursive;
+          color: rgba(255, 215, 0, 0.05);
           z-index: 0;
+          pointer-events: none;
         }
         
         .hero-container {
@@ -150,16 +247,26 @@
           font-size: 3rem;
           font-weight: 800;
           line-height: 1.1;
-          margin-bottom: 1.5rem;
+          margin-bottom: 1rem;
           letter-spacing: -0.025em;
         }
         
+        .new-year-greeting {
+          font-size: 2rem;
+          margin-bottom: 1.5rem;
+          color: var(--secondary-color);
+          font-weight: 700;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+          font-family: 'Ma Shan Zheng', cursive;
+        }
+        
         .gradient-text {
-          background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+          background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
           display: inline-block;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         
         .hero-description {
@@ -189,44 +296,76 @@
           transition: all 0.3s ease;
           text-decoration: none;
           gap: 0.5rem;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .btn:before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+          transition: 0.5s;
+        }
+
+        .btn:hover:before {
+          left: 100%;
         }
         
         .btn-primary {
-          background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+          background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
           color: white;
-          box-shadow: 0 4px 12px rgba(77, 184, 255, 0.3);
+          box-shadow: 0 4px 12px rgba(255, 77, 77, 0.4);
         }
         
         .btn-primary:hover {
+          background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
           transform: translateY(-2px);
-          box-shadow: 0 8px 20px rgba(77, 184, 255, 0.4);
+          box-shadow: 0 8px 20px rgba(255, 77, 77, 0.6);
         }
         
         .btn-secondary {
-          background-color: rgba(255, 255, 255, 0.1);
-          color: var(--text-primary);
-          border: 1px solid var(--border-color);
+          background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 149, 0, 0.2));
+          color: var(--secondary-color);
+          border: 1px solid rgba(255, 215, 0, 0.3);
         }
         
         .btn-secondary:hover {
-          border-color: var(--primary-color);
-          color: var(--primary-color);
+          background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 149, 0, 0.3));
+          border-color: var(--secondary-color);
+          color: var(--secondary-color);
           transform: translateY(-2px);
           box-shadow: var(--shadow-md);
         }
         
         .announcement-box {
-          background: linear-gradient(135deg, rgba(0, 60, 120, 0.2), rgba(0, 100, 200, 0.1));
+          background: linear-gradient(135deg, rgba(255, 149, 0, 0.15), rgba(255, 215, 0, 0.1));
           border-radius: var(--radius-lg);
           padding: 2rem;
           margin: 2rem 0;
-          border-left: 4px solid var(--primary-color);
+          border-left: 4px solid var(--secondary-color);
           box-shadow: var(--shadow-md);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .announcement-box:before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ff9500' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+          z-index: -1;
         }
         
         .announcement-title {
           font-size: 1.2rem;
-          color: var(--primary-light);
+          color: var(--secondary-color);
           margin-bottom: 1rem;
           text-align: left;
           font-weight: 600;
@@ -241,22 +380,22 @@
         
         .version-box {
           display: inline-block;
-          background: rgba(0, 80, 160, 0.3);
+          background: rgba(255, 215, 0, 0.2);
           padding: 8px 20px;
           border-radius: var(--radius-full);
           margin-top: 15px;
           font-weight: bold;
-          color: var(--primary-light);
-          border: 1px solid rgba(100, 180, 255, 0.3);
+          color: var(--secondary-color);
+          border: 1px solid rgba(255, 215, 0, 0.4);
         }
         
         .countdown {
           text-align: center;
           font-size: 1.8rem;
-          color: var(--primary-color);
+          color: var(--secondary-color);
           margin: 2rem 0 3rem;
           font-weight: bold;
-          text-shadow: 0 0 10px rgba(0, 150, 255, 0.5);
+          text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
           padding: 1.5rem;
           background: rgba(0, 0, 0, 0.3);
           border-radius: var(--radius-lg);
@@ -265,7 +404,22 @@
         
         .features {
           padding: 6rem 0;
-          background-color: var(--bg-white);
+          background-color: rgba(255, 240, 240, 0.95);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .features::before {
+          content: '春';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 20rem;
+          font-family: 'Ma Shan Zheng', cursive;
+          color: rgba(255, 77, 77, 0.05);
+          z-index: 0;
+          pointer-events: none;
         }
         
         .section-title {
@@ -273,17 +427,21 @@
           font-size: 2.5rem;
           font-weight: 700;
           margin-bottom: 1rem;
-          color: var(--text-primary);
+          color: var(--primary-dark);
+          position: relative;
+          z-index: 1;
         }
         
         .section-subtitle {
           text-align: center;
           font-size: 1.125rem;
-          color: var(--text-secondary);
+          color: #8b0000;
           margin-bottom: 3rem;
           max-width: 700px;
           margin-left: auto;
           margin-right: auto;
+          position: relative;
+          z-index: 1;
         }
         
         .features-grid {
@@ -291,6 +449,8 @@
           grid-template-columns: 1fr;
           gap: 2rem;
           margin-top: 3rem;
+          position: relative;
+          z-index: 1;
         }
         
         @media (min-width: 768px) {
@@ -304,32 +464,45 @@
         }
         
         .feature-card {
-          background-color: var(--bg-card);
+          background-color: rgba(255, 255, 255, 0.95);
           border-radius: var(--radius-lg);
           padding: 2rem;
           box-shadow: var(--shadow-md);
-          border: 1px solid transparent;
+          border: 2px solid transparent;
           transition: all 0.3s ease;
           display: flex;
           flex-direction: column;
           align-items: flex-start;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .feature-card:before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 5px;
+          height: 100%;
+          background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
         }
         
         .feature-card:hover {
           transform: translateY(-8px);
           box-shadow: var(--shadow-lg);
-          border-color: var(--primary-light);
+          border-color: var(--primary-color);
         }
         
         .feature-icon {
           width: 3.5rem;
           height: 3.5rem;
           border-radius: var(--radius-lg);
-          background: linear-gradient(135deg, rgba(77, 184, 255, 0.1), rgba(77, 184, 255, 0.05));
+          background: linear-gradient(135deg, rgba(255, 77, 77, 0.1), rgba(255, 77, 77, 0.05));
           display: flex;
           align-items: center;
           justify-content: center;
           margin-bottom: 1.5rem;
+          border: 2px solid var(--secondary-color);
         }
         
         .feature-icon i {
@@ -341,17 +514,31 @@
           font-size: 1.25rem;
           font-weight: 600;
           margin-bottom: 0.75rem;
-          color: var(--text-primary);
+          color: var(--primary-dark);
         }
         
         .feature-card p {
-          color: var(--text-secondary);
+          color: #666;
           line-height: 1.7;
         }
         
         .gallery {
           padding: 6rem 0;
-          background: linear-gradient(135deg, rgba(10, 10, 15, 0.9) 0%, rgba(20, 20, 30, 0.8) 100%);
+          background: linear-gradient(135deg, rgba(139, 0, 0, 0.9) 0%, rgba(204, 0, 0, 0.8) 100%);
+          position: relative;
+        }
+
+        .gallery::before {
+          content: '乐';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 20rem;
+          font-family: 'Ma Shan Zheng', cursive;
+          color: rgba(255, 215, 0, 0.05);
+          z-index: 0;
+          pointer-events: none;
         }
         
         .gallery-container {
@@ -359,6 +546,8 @@
           flex-direction: column;
           align-items: center;
           gap: 3rem;
+          position: relative;
+          z-index: 1;
         }
         
         .gallery-item {
@@ -368,9 +557,10 @@
         }
         
         .gallery-item h3 {
-          color: var(--primary-light);
+          color: var(--secondary-color);
           margin-bottom: 1.5rem;
           font-size: 1.5rem;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
         
         .gallery-item img {
@@ -383,6 +573,7 @@
           box-shadow: var(--shadow-lg);
           margin: 0 auto;
           display: block;
+          border: 3px solid var(--secondary-color);
         }
         
         .single-image {
@@ -399,11 +590,27 @@
           box-shadow: var(--shadow-lg);
           margin: 0 auto;
           display: block;
+          border: 3px solid var(--secondary-color);
         }
         
         .server-info {
           padding: 4rem 0;
-          background-color: var(--bg-white);
+          background-color: rgba(255, 240, 240, 0.95);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .server-info::before {
+          content: '祥';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 20rem;
+          font-family: 'Ma Shan Zheng', cursive;
+          color: rgba(255, 77, 77, 0.05);
+          z-index: 0;
+          pointer-events: none;
         }
         
         .info-cards {
@@ -411,6 +618,8 @@
           grid-template-columns: 1fr;
           gap: 2rem;
           margin-top: 3rem;
+          position: relative;
+          z-index: 1;
         }
         
         @media (min-width: 768px) {
@@ -420,30 +629,42 @@
         }
         
         .info-item {
-          background-color: var(--bg-card);
+          background-color: rgba(255, 255, 255, 0.95);
           border-radius: var(--radius-lg);
           padding: 2rem;
           text-align: center;
           box-shadow: var(--shadow-md);
-          border: 1px solid transparent;
+          border: 2px solid transparent;
           transition: all 0.3s ease;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .info-item:before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 5px;
+          background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
         }
         
         .info-item:hover {
           transform: translateY(-5px);
           box-shadow: var(--shadow-lg);
-          border-color: var(--primary-light);
+          border-color: var(--primary-color);
         }
         
         .info-item h4 {
           font-size: 1.25rem;
-          color: var(--primary-light);
+          color: var(--primary-dark);
           margin-bottom: 1rem;
           font-weight: 600;
         }
         
         .info-item p {
-          color: var(--text-secondary);
+          color: #666;
           font-size: 1.1rem;
         }
         
@@ -460,19 +681,34 @@
           color: white;
           width: 100%;
           max-width: 300px;
-          box-shadow: 0 4px 12px rgba(77, 184, 255, 0.3);
+          box-shadow: 0 4px 12px rgba(255, 77, 77, 0.3);
         }
         
         .btn-download:hover {
           transform: translateY(-2px);
-          box-shadow: 0 8px 20px rgba(77, 184, 255, 0.4);
+          box-shadow: 0 8px 20px rgba(255, 77, 77, 0.4);
         }
         
         .footer {
-          background-color: var(--text-primary);
-          color: var(--bg-light);
+          background: linear-gradient(135deg, #8b0000, #cc0000);
+          color: var(--text-primary);
           padding: 4rem 0 2rem;
           text-align: center;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .footer::before {
+          content: '吉';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 15rem;
+          font-family: 'Ma Shan Zheng', cursive;
+          color: rgba(255, 255, 255, 0.05);
+          z-index: 0;
+          pointer-events: none;
         }
         
         .footer-content {
@@ -480,6 +716,8 @@
           grid-template-columns: 1fr;
           gap: 3rem;
           margin-bottom: 3rem;
+          position: relative;
+          z-index: 1;
         }
         
         .footer-logo {
@@ -491,23 +729,29 @@
         }
         
         .footer p {
-          color: #666;
+          color: rgba(255, 255, 255, 0.8);
           line-height: 1.7;
           max-width: 500px;
           margin: 0 auto;
         }
         
         .footer-bottom {
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          border-top: 1px solid rgba(255, 255, 255, 0.2);
           padding-top: 2rem;
           text-align: center;
-          color: #888;
+          color: rgba(255, 255, 255, 0.6);
           font-size: 0.875rem;
+          position: relative;
+          z-index: 1;
         }
         
         @media (max-width: 768px) {
           .hero-title {
             font-size: 2.5rem;
+          }
+
+          .new-year-greeting {
+            font-size: 1.5rem;
           }
         
           .hero-description {
@@ -535,6 +779,10 @@
         
           .hero-title {
             font-size: 2rem;
+          }
+
+          .new-year-greeting {
+            font-size: 1.3rem;
           }
         
           .hero-description {
@@ -576,11 +824,14 @@
 </head>
 
 <body>
+    <!-- 新年装饰元素 -->
+    <div class="new-year-decoration" id="newYearDecoration"></div>
+
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
                 <img src="/img/index/FreewdIcon.png" alt="Freewd服务器" class="logo-img">
-                <span class="logo-text">Freewd 4.0</span>
+                <span class="logo-text">Freewd 4.0 <span class="new-year-badge">新春版</span></span>
             </div>
         </div>
     </nav>
@@ -588,6 +839,7 @@
     <section class="hero">
         <div class="hero-container">
             <div class="hero-content fade-in">
+                <div class="new-year-greeting">新春快乐 · 龙年大吉</div>
                 <h1 class="hero-title">
                     <span class="gradient-text">Freewd服务器</span>
                     <br />基岩版 Minecraft 公益服
@@ -597,9 +849,9 @@
                 </p>
 
                 <div class="announcement-box fade-in">
-                    <div class="announcement-title">Freewd 4.0 正式开服公告</div>
+                    <div class="announcement-title">Freewd 4.0 新春开服公告</div>
                     <div class="announcement-content">
-                        经过精心筹备<br>Freewd正式开启4.0时代！<br>
+                        龙年新春，万象更新！<br>Freewd正式开启4.0时代！<br>
                         服务器设有白名单，进入之前请向群管理员或者群主报备你的游戏代号
                         <div class="version-box">Minecraft基岩版版本: 26.0.x</div>
                     </div>
@@ -620,7 +872,7 @@
     <section id="features" class="features">
         <div class="container">
             <h2 class="section-title fade-in">服务器核心特色</h2>
-            <p class="section-subtitle fade-in">体验纯净、友好的Minecraft生存服务器，享受真正的游戏乐趣</p>
+            <p class="section-subtitle fade-in">新春佳节，体验纯净、友好的Minecraft生存服务器，享受真正的游戏乐趣</p>
             <div class="features-grid">
                 <div class="feature-card fade-in">
                     <div class="feature-icon">
@@ -657,7 +909,7 @@
     <section id="gallery" class="gallery">
         <div class="container">
             <h2 class="section-title fade-in">服务器实景展示</h2>
-            <p class="section-subtitle fade-in">看看我们的玩家在Minecraft世界中的精彩创作</p>
+            <p class="section-subtitle fade-in">新春佳节，看看我们的玩家在Minecraft世界中的精彩创作</p>
             <div class="gallery-container">
                 <!-- 合照单独显示在上方 -->
                 <div class="gallery-item fade-in">
@@ -706,14 +958,14 @@
                         <img src="/img/index/Cover10.jpg" alt="Minecraft建筑6">
                     </div>
                     <div class="single-image">
-                        <img src="/img/index/Cover11.jpg" alt="Minecraft建筑7">
+                        <img src="/img src="/img/index/Cover11.jpg" alt="Minecraft建筑7">
                     </div>
                 </div>
 
                 <div class="announcement-box fade-in" style="margin-top: 3rem;">
-                    <div class="announcement-title">新玩家礼遇</div>
+                    <div class="announcement-title">新春玩家礼遇</div>
                     <div class="announcement-content">
-                        初次加入可领取「新手礼包」<br>18颗钻石 + 25份面包<br>助你轻松起步！<br>
+                        龙年新春加入可领取「新春礼包」<br>36颗钻石 + 50份面包 + 春节限定装饰<br>助你轻松起步，欢度新春！<br>
                         无论你是新手还是老玩家，都能快速融入我们的世界，开始你的冒险之旅
                     </div>
                 </div>
@@ -724,7 +976,7 @@
     <section id="info" class="server-info">
         <div class="container">
             <h2 class="section-title fade-in">服务器信息</h2>
-            <p class="section-subtitle fade-in">了解服务器详情，准备加入我们的冒险之旅</p>
+            <p class="section-subtitle fade-in">新春佳节，了解服务器详情，准备加入我们的冒险之旅</p>
 
             <div class="info-cards">
                 <div class="info-item fade-in">
@@ -740,6 +992,15 @@
                     <p>1月20日 中午12:00</p>
                 </div>
             </div>
+
+            <div class="btn-group">
+                <a href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=TUPA9W0spTbA3ba3zbzBIAirJCahdDMe&authKey=JpCwLmkZ1pXDUuCdr5u7c2cwwAiuuwFCByAxpxJWpCYXeeC0IYfZCyh5IBcCCT51&noverify=0&group_code=340707471" class="btn btn-primary btn-download">
+                    <i class="fab fa-qq"></i> 立即加入QQ群
+                </a>
+                <a href="https://github.com/blockcarft4979/freewd_community/releases" class="btn btn-secondary btn-download">
+                    <i class="fas fa-download"></i> 下载新春版APP
+                </a>
+            </div>
         </div>
     </section>
 
@@ -751,17 +1012,82 @@
                         <img src="/img/index/FreewdIcon.png" alt="Freewd服务器" class="logo-img">
                         <span class="logo-text">Freewd服务器</span>
                     </div>
-                    <p>基岩版 Minecraft 公益服，为你带来纯净、友好的游戏体验</p>
+                    <p>基岩版 Minecraft 公益服，新春佳节为你带来纯净、友好的游戏体验</p>
+                    <p style="margin-top: 1rem; color: var(--secondary-color); font-weight: 600;">祝各位玩家新春快乐，游戏愉快！</p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 BLOCKCARFT.</p>
+                <p>&copy; 2026 BLOCKCARFT. 新春特供版</p>
             </div>
         </div>
     </footer>
 
     <script>
+        // 创建新年装饰元素
+        function createNewYearDecorations() {
+          const decorationContainer = document.getElementById('newYearDecoration');
+          
+          // 创建灯笼
+          for (let i = 0; i < 8; i++) {
+            const lantern = document.createElement('div');
+            lantern.classList.add('lantern');
+            
+            // 随机位置
+            const left = Math.random() * 90 + 5;
+            const top = Math.random() * 80 + 10;
+            const delay = Math.random() * 5;
+            
+            lantern.style.left = `${left}%`;
+            lantern.style.top = `${top}%`;
+            lantern.style.animationDelay = `${delay}s`;
+            
+            decorationContainer.appendChild(lantern);
+          }
+          
+          // 创建烟花
+          for (let i = 0; i < 12; i++) {
+            const firework = document.createElement('div');
+            firework.classList.add('firework');
+            
+            // 随机位置
+            const left = Math.random() * 90 + 5;
+            const top = Math.random() * 90 + 5;
+            const delay = Math.random() * 3;
+            const duration = Math.random() * 2 + 1;
+            
+            firework.style.left = `${left}%`;
+            firework.style.top = `${top}%`;
+            firework.style.animationDelay = `${delay}s`;
+            firework.style.animationDuration = `${duration}s`;
+            
+            decorationContainer.appendChild(firework);
+          }
+          
+          // 创建雪花
+          for (let i = 0; i < 40; i++) {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.innerHTML = '❄';
+            
+            // 随机位置和大小
+            const size = Math.random() * 1.5 + 0.5;
+            const left = Math.random() * 100;
+            const duration = Math.random() * 10 + 10;
+            const delay = Math.random() * 5;
+            
+            snowflake.style.left = `${left}%`;
+            snowflake.style.fontSize = `${size}rem`;
+            snowflake.style.animationDuration = `${duration}s`;
+            snowflake.style.animationDelay = `${delay}s`;
+            
+            decorationContainer.appendChild(snowflake);
+          }
+        }
+
         document.addEventListener("DOMContentLoaded", function () {
+          // 创建新年装饰
+          createNewYearDecorations();
+          
           const fadeElements = document.querySelectorAll('.fade-in');
         
           const fadeInObserver = new IntersectionObserver((entries) => {
@@ -775,6 +1101,28 @@
           fadeElements.forEach(element => {
             fadeInObserver.observe(element);
           });
+
+          // 添加新春祝福语轮换
+          const greetings = [
+            "新春快乐，龙年大吉！",
+            "Freewd服务器祝您游戏愉快！",
+            "龙年行大运，挖矿爆钻石！",
+            "红红火火，新春开服！"
+          ];
+          
+          const greetingElement = document.querySelector('.new-year-greeting');
+          let currentGreeting = 0;
+          
+          if (greetingElement) {
+            setInterval(() => {
+              currentGreeting = (currentGreeting + 1) % greetings.length;
+              greetingElement.style.opacity = 0;
+              setTimeout(() => {
+                greetingElement.textContent = greetings[currentGreeting];
+                greetingElement.style.opacity = 1;
+              }, 500);
+            }, 5000);
+          }
         });
     </script>
 </body>
