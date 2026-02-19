@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>404 - 页面走丢了</title>
+
+    <!-- 3秒后自动跳转 -->
+    <meta http-equiv="refresh" content="3;url=/reward/not_found.mp4">
+
+    <style>
+        body {
+            margin: 0;
+            background: #0f0f0f;
+            color: #ffffff;
+            font-family: "Microsoft YaHei", sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 72px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            opacity: 0.7;
+            margin-bottom: 20px;
+        }
+
+        .hint {
+            font-size: 14px;
+            opacity: 0.4;
+        }
+    </style>
+
+    <script>
+        // 更丝滑一点的 JS 跳转（防止某些浏览器不执行 meta）
+        setTimeout(function() {
+            window.location.href = "/reward/not_found.mp4";
+        }, 3000);
+    </script>
+</head>
+<body>
+
+    <h1>404</h1>
+    <p>页面好像迷路了…</p>
+    <p>正在带你前往“正确的地方” 😏</p>
+    <div class="hint">Freewd Studio © 2026</div>
+
+</body>
+</html>
