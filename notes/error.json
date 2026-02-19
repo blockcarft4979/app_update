@@ -1,11 +1,15 @@
 {
-    "isError":true,
-    "username":"我是错误姬~",
+    "isError": true,
+    "username": "我是错误姬~",
     "title": "出错啦",
     "message": "温馨提示：\n抱歉，您访问的帖子出现了一些问题，可能的原因如下：\n1. 帖子已被发布者删除；\n2. 帖子链接有误或已被移除；\n3. 服务器数据加载失败；\n4. 服务器当前处于维护中。\n\n您可以尝试：\n*   刷新页面，重新加载数据；\n*   检查网络是否连接正常；\n*   若问题持续，请联系管理员反馈。\n截图此页面可以向管理员索要补偿（bushi）",
+    "error_icon": "https://www.blockcarft.xyz/img/Freewd%20Icon.png",
     "QQ": "00000",
     "date": "1145-14-19 19:81:00",
-    "img": "https://www.blockcarft.xyz/img/Freewd%20Icon.png",
-    "likes": [],
-    "reply": []
+    "likes": [
+
+    ],
+    "reply": [
+
+    ]
 }
