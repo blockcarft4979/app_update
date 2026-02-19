@@ -4,14 +4,14 @@
         {
             "name": "闲聊吧",
             "description": "吹吹牛、灌水、分享日常都可以哦",
-            "icon": "https://www.blockcarft.xyz/icons/Daily.png",
+            "icon": "https://freewd.top/icons/Daily.png",
             "zone": 1
         },
 
         {
             "name": "匿名吧",
             "description": "快来看看小幽灵们都说了些什么吧",
-            "icon": "https://www.blockcarft.xyz/icons/Ghost.png",
+            "icon": "https://freewd.top/icons/Ghost.png",
             "zone": 3
         }
     ]
