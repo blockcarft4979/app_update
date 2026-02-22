@@ -66,5 +66,9 @@ Freewd 社区正式版发布
 
 修复了软件放置后台过久重新打开停止运行的问题
 
-© 2026·由BLOCKCARFT开发
+2.4.0
+
+更新搜索功能以及部分接口
+
+© 2025-2026·由BLOCKCARFT开发
 Github：https://github.com/blockcarft4979/freewd_community/releases
