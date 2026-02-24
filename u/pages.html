@@ -3,26 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>新春跳转到 Freewd 社区</title>
+<title>跳转到 Freewd 社区</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
-  href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
   rel="stylesheet"
 />
 <style>
 :root {
-  --primary-color: #ff4d4d;
-  --primary-light: #ff6666;
-  --primary-dark: #cc0000;
-  --secondary-color: #ffd700;
-  --accent-color: #ff9500;
-  --text-primary: #fff;
-  --text-secondary: #fff3cd;
-  --bg-light: linear-gradient(135deg, #8b0000 0%, #cc0000 50%, #ff4d4d 100%);
-  --bg-white: rgba(255, 240, 240, 0.95);
-  --bg-card: rgba(200, 30, 30, 0.85);
-  --border-color: rgba(255, 215, 0, 0.4);
+  --primary-color: #4db8ff;
+  --primary-light: #66cfff;
+  --primary-dark: #0077cc;
+  --secondary-color: #f59e0b;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --bg-light: #111;
+  --bg-white: #0f0f0f;
+  --bg-card: rgba(30, 30, 30, 0.9);
+  --border-color: rgba(100, 100, 100, 0.2);
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
@@ -40,195 +39,48 @@
 }
 
 body {
-  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.6;
   color: var(--text-primary);
-  background: var(--bg-light);
+  background-color: var(--bg-light);
   overflow-x: hidden;
   padding: 20px;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-}
-
-/* 新年装饰背景 */
-.new-year-decoration {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: -1;
-  overflow: hidden;
-}
-
-.lantern {
-  position: absolute;
-  width: 80px;
-  height: 100px;
-  background: var(--primary-color);
-  border-radius: 40px 40px 10px 10px;
-  animation: swing 5s infinite ease-in-out;
-}
-
-.lantern:before, .lantern:after {
-  content: '';
-  position: absolute;
-  background: var(--secondary-color);
-}
-
-.lantern:before {
-  width: 100%;
-  height: 20px;
-  top: -10px;
-  border-radius: 10px;
-}
-
-.lantern:after {
-  width: 20px;
-  height: 30px;
-  bottom: -30px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.lantern:nth-child(1) {
-  top: 10%;
-  left: 5%;
-  animation-delay: 0s;
-}
-
-.lantern:nth-child(2) {
-  top: 15%;
-  right: 7%;
-  animation-delay: 1s;
-}
-
-.lantern:nth-child(3) {
-  bottom: 20%;
-  left: 10%;
-  animation-delay: 2s;
-}
-
-.lantern:nth-child(4) {
-  bottom: 15%;
-  right: 8%;
-  animation-delay: 3s;
-}
-
-.firework {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--secondary-color);
-  animation: firework 2s infinite;
-}
-
-.firework:nth-child(5) {
-  top: 20%;
-  left: 20%;
-  animation-delay: 0.5s;
-}
-
-.firework:nth-child(6) {
-  top: 30%;
-  right: 25%;
-  animation-delay: 1.2s;
-}
-
-.firework:nth-child(7) {
-  bottom: 25%;
-  left: 30%;
-  animation-delay: 0.8s;
-}
-
-.firework:nth-child(8) {
-  bottom: 35%;
-  right: 15%;
-  animation-delay: 1.5s;
-}
-
-@keyframes swing {
-  0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50% { transform: translateY(-15px) rotate(2deg); }
-}
-
-@keyframes firework {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.5); opacity: 0.7; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-/* 雪花效果 */
-.snowflake {
-  position: absolute;
-  top: -10px;
-  color: white;
-  font-size: 1.2rem;
-  opacity: 0.8;
-  animation: fall linear infinite;
-}
-
-@keyframes fall {
-  to {
-    transform: translateY(100vh) rotate(360deg);
-  }
 }
 
 .container {
   max-width: 600px;
   margin: 0 auto;
   padding: 3rem;
-  background: var(--bg-card);
+  background: rgba(15, 15, 20, 0.9);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-lg);
-  border: 2px solid var(--border-color);
+  border: 1px solid var(--border-color);
   backdrop-filter: blur(10px);
   text-align: center;
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
-}
-
-/* 福字背景 */
-.container:before {
-  content: '福';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(180deg);
-  font-size: 15rem;
-  font-family: 'Ma Shan Zheng', cursive;
-  color: rgba(255, 215, 0, 0.1);
-  z-index: -1;
-  pointer-events: none;
 }
 
 .logo {
-  font-size: 3.5rem;
+  font-size: 3rem;
   margin-bottom: 1.5rem;
-  color: var(--secondary-color);
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  color: var(--primary-color);
 }
 
 h1 {
-  font-size: 2.2rem;
+  font-size: 2rem;
   margin-bottom: 1rem;
   color: var(--text-primary);
-  font-weight: 700;
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   font-weight: 700;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .message {
@@ -257,69 +109,38 @@ h1 {
   transition: all 0.3s ease;
   cursor: pointer;
   gap: 0.5rem;
-  border: none;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: 0.5s;
-}
-
-.btn:hover:before {
-  left: 100%;
+  border: 1px solid var(--border-color);
 }
 
 .btn-primary {
   background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
   color: white;
-  box-shadow: 0 4px 15px rgba(255, 77, 77, 0.4);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 77, 77, 0.6);
+  box-shadow: var(--shadow-md);
 }
 
 .btn-secondary {
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 149, 0, 0.2));
-  color: var(--secondary-color);
-  border: 1px solid rgba(255, 215, 0, 0.3);
+  background: rgba(77, 184, 255, 0.1);
+  color: var(--primary-color);
 }
 
 .btn-secondary:hover {
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 149, 0, 0.3));
+  background: rgba(77, 184, 255, 0.2);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);
+  box-shadow: var(--shadow-md);
 }
 
 .wechat-warning {
-  background: rgba(255, 149, 0, 0.15);
-  border: 1px solid rgba(255, 149, 0, 0.4);
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
   margin: 2rem 0;
   text-align: left;
-  position: relative;
-}
-
-.wechat-warning:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ff9500' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
-  z-index: -1;
 }
 
 .wechat-warning h3 {
@@ -343,8 +164,8 @@ h1 {
 }
 
 .step-number {
-  background: var(--secondary-color);
-  color: var(--primary-dark);
+  background: var(--primary-color);
+  color: white;
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -360,7 +181,6 @@ h1 {
   margin: 2rem 0;
   color: var(--text-secondary);
   font-size: 1rem;
-  position: relative;
 }
 
 .loading:after {
@@ -375,32 +195,6 @@ h1 {
   80%, 100% { content: '...'; }
 }
 
-.new-year-greeting {
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  color: var(--secondary-color);
-  font-weight: 700;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  font-family: 'Ma Shan Zheng', cursive;
-}
-
-.year-badge {
-  display: inline-block;
-  background: var(--secondary-color);
-  color: var(--primary-dark);
-  padding: 0.3rem 1rem;
-  border-radius: var(--radius-full);
-  font-weight: 700;
-  margin-left: 0.5rem;
-  transform: rotate(5deg);
-  animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-  0%, 100% { transform: rotate(5deg) translateY(0); }
-  50% { transform: rotate(5deg) translateY(-5px); }
-}
-
 @media (max-width: 768px) {
   body {
     padding: 10px;
@@ -411,15 +205,11 @@ h1 {
   }
   
   h1 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
   
   .logo {
-    font-size: 3rem;
-  }
-  
-  .new-year-greeting {
-    font-size: 1.3rem;
+    font-size: 2.5rem;
   }
 }
 
@@ -431,32 +221,13 @@ h1 {
   .btn {
     width: 100%;
   }
-  
-  .lantern {
-    transform: scale(0.7);
-  }
 }
 </style>
 </head>
 <body>
-<div class="new-year-decoration">
-  <div class="lantern"></div>
-  <div class="lantern"></div>
-  <div class="lantern"></div>
-  <div class="lantern"></div>
-  <div class="firework"></div>
-  <div class="firework"></div>
-  <div class="firework"></div>
-  <div class="firework"></div>
-</div>
-
 <div class="container">
   <div class="logo">
-    <i class="fas fa-fire"></i>
-  </div>
-  
-  <div class="new-year-greeting">
-    新春快乐 <span class="year-badge">2026</span>
+    <i class="fas fa-rocket"></i>
   </div>
   
   <h1>前往 <span class="gradient-text">Freewd</span> 社区</h1>
@@ -482,7 +253,7 @@ h1 {
   </div>
   
   <div id="normal-view">
-    <p class="message">正在为您跳转到 Freewd 社区应用，祝您新年快乐！</p>
+    <p class="message">正在为您跳转到 Freewd 社区应用</p>
     <div class="loading">正在准备跳转</div>
   </div>
   
@@ -497,31 +268,6 @@ h1 {
 </div>
 
 <script>
-// 生成雪花
-function createSnowflakes() {
-  const snowContainer = document.querySelector('.new-year-decoration');
-  const snowflakeCount = 30;
-  
-  for (let i = 0; i < snowflakeCount; i++) {
-    const snowflake = document.createElement('div');
-    snowflake.classList.add('snowflake');
-    snowflake.innerHTML = '❄';
-    
-    // 随机位置和大小
-    const size = Math.random() * 1.5 + 0.5;
-    const left = Math.random() * 100;
-    const duration = Math.random() * 10 + 10;
-    const delay = Math.random() * 5;
-    
-    snowflake.style.left = `${left}%`;
-    snowflake.style.fontSize = `${size}rem`;
-    snowflake.style.animationDuration = `${duration}s`;
-    snowflake.style.animationDelay = `${delay}s`;
-    
-    snowContainer.appendChild(snowflake);
-  }
-}
-
 // 检测是否在QQ或微信浏览器中
 function isWechatOrQQ() {
   const ua = navigator.userAgent.toLowerCase();
@@ -568,9 +314,6 @@ function copyToClipboard(text) {
 
 // 主函数
 document.addEventListener('DOMContentLoaded', function() {
-  // 创建雪花效果
-  createSnowflakes();
-  
   const { filename, zone, appUrl } = getJumpParams();
   const inWechatQQ = isWechatOrQQ();
   const normalView = document.getElementById('normal-view');
@@ -588,7 +331,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const success = await copyToClipboard(window.location.href);
     if (success) {
       const originalText = copyLinkBtn.innerHTML;
-      copyLinkBtn.innerHTML = '<i class="fas fa-check"></i> 链接已复制';
+      copyLinkBtn.innerHTML = '<i class="fas fa-check"></i> 已复制';
       setTimeout(() => {
         copyLinkBtn.innerHTML = originalText;
       }, 2000);
