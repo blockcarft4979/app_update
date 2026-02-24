@@ -5,8 +5,9 @@
 Freewd 社区感谢有您~
 
 本社区于2025年8月13日成立
-
-（此更新日志仅记录重要版本更新日志）
+————分割线————
+>>！截至目前Freewd社区已更新超过100个版本！
+>>！此更新日志仅记录重要版本更新日志
 
 1.0.0
 
@@ -75,4 +76,5 @@ Freewd 社区正式版发布
 更新Freewd UID作为用户唯一标识
 
 © 2025-2026·由BLOCKCARFT开发
-Github：https://github.com/blockcarft4979/freewd_community/releases
+
+GitHub仓库：https://github.com/blockcarft4979/freewd_community/releases
