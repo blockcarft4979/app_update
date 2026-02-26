@@ -77,6 +77,12 @@ Freewd 社区正式版发布
 
 更新Freewd UID作为用户唯一标识
 
+2.4.2
+
+更换图库换成官方开发的图库网站
+Freewd社区图库：
+https://photo.freewd.top
+
 © 2025-2026·由BLOCKCARFT开发
 
 GitHub仓库：https://github.com/blockcarft4979/freewd_community/releases
