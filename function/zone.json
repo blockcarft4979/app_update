@@ -1,0 +1,10 @@
+{
+    "zone": [
+        {
+            "name": "请更新社区",
+            "description": "请更新版本使用",
+            "icon": "https://freewd.top/img/index/FreewdIcon.png",
+            "msg": "请更新版本使用"
+        }
+    ]
+}
